@@ -88,6 +88,7 @@ const TopHeader: React.FC<ITopHeader> = ({ isOpen, closeMobile }) => {
       <div className="flex items-center gap-4">
         {/* <WalletConnect/> */}
         {/* <XionWallet/> */}
+        <p>Hello</p>
         {
               isAuthenticated
               ?
