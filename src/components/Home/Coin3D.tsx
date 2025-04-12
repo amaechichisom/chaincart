@@ -4,7 +4,7 @@ import * as IMG from './../../assets';
 const Coin3D = () => {
   const [rotation, setRotation] = useState({ x: 15, y: 0 });
   const animationRef = useRef<number | null>(null);
-  const [speed, setSpeed] = useState(0.5);
+  const speed = 0.5;
 
   useEffect(() => {
     const animate = () => {
