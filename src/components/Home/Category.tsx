@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Category() {
   return (
-    <section className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 justify-center py-7">
+    <section className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-center py-7 pt-2">
         {
             categoryCardData.map((data,index)=>(
                 <motion.div

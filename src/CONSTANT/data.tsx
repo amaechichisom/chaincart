@@ -85,37 +85,37 @@ export const categoryCardData:CategoryCardProps[] =[
     },
     {
         image: IMG.Household_Need,
-        title:'Household_Need',
+        title:'Household Need',
         count: 2
     },
     {
         image: IMG.Meat_and_Seafood,
-        title:'Meat_and_Seafood',
+        title:'Meat and Seafood',
         count: 2
     },
     {
         image: IMG.Mini_Flat,
-        title:'Mini_Flat',
+        title:'Mini Flat',
         count: 2
     },
     {
         image: IMG.Mini_flat_One,
-        title:'Mini_flat_One',
+        title:'Mini flat One',
         count: 2
     },
     {
         image: IMG.Shared_Apartment,
-        title:'Shared_Apartment',
+        title:'Shared Apartment',
         count: 2
     },
     {
         image: IMG.Sky_Scrapper,
-        title:'Sky_Scrapper',
+        title:'Sky Scrapper',
         count: 2
     },
     {
         image: IMG.Studio_Apartment,
-        title:'Studio_Apartment',
+        title:'Studio Apartment',
         count: 2
     },
     {
@@ -196,16 +196,16 @@ export const dealsData = {
 export const PromaBannerData =[
     {
         discountText:"Weekend Discount 40%",
-        title:"Cookie and Ice Cream",
-        subTitle:"Beacon Weekend Discount",
+        title:"4-bedroom Duplex Mansion",
+        subTitle:"Shortlet Weekend Discount",
         buttonText:"Shop Now",
         imageUrl:IMG.CreamBanner,
         bgColor:"bg-teal-100"
     },
     {
         discountText:"Weekend Discount 40%",
-        title:"Cookie and Ice Cream",
-        subTitle:"Beacon Weekend Discount",
+        title:"Furnished 2-bedroom Apartment",
+        subTitle:"Shorlet Weekend Discount",
         buttonText:"Shop Now",
         imageUrl:IMG.CreamBannerOne,
         bgColor:"bg-pink-100"

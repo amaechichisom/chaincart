@@ -1,3 +1,4 @@
+import About from "./components/Home/About";
 import { BestSeller } from "./components/Home/BestSeller";
 import Category from "./components/Home/Category";
 import Deal from "./components/Home/Deal";
@@ -11,8 +12,9 @@ import useSetCart from "./hooks/useSetCart";
 function App() {
   useSetCart();
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 px-2">
       <HeroSection />
+      <About/>
       <Category/>
       <Deal/>
       <Promo/>
