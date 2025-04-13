@@ -8,8 +8,7 @@ import * as Image from './../../assets';
 import { 
   Users, 
   Code, 
-  Briefcase,
-  ChevronRight
+  Briefcase
 } from "lucide-react";
 
 const Team = () => {
