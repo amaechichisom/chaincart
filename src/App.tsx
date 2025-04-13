@@ -6,6 +6,7 @@ import Finished from "./components/Home/Finished";
 import Promo from "./components/Home/Promo";
 import Sponsor from "./components/Home/Sponsor";
 import SuperDiscount from "./components/Home/SuperDiscount";
+import Team from "./components/Home/Team";
 import HeroSection from "./components/shared/HeroSection";
 import useSetCart from "./hooks/useSetCart";
 
@@ -22,6 +23,7 @@ function App() {
       <SuperDiscount/>
       <Finished/>
       <Sponsor/>
+      <Team/>
     </div>
   );
 }
