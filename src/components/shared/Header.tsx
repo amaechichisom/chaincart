@@ -6,15 +6,15 @@ import Notification from "./Notification";
 // import { InputField } from "./InputField";
 import CategorySelector from "./CategorySelector";
 import { headerMenu } from "@/CONSTANT/data";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { WalletConnect } from "../Wallet/WalletConnect";
 import Logo from "./Logo";
 import SearchBar from "../search/SearchBar";
-// import XionWallet from "../Wallet/XionWallet";
-import AppButton from "./AppButton";
-import { RootState, useAppSelector } from "@/store";
-import useAuth from "../auth/hook/useAuth";
-import AvatarMenu from "./Avatar";
+import XionWallet from "../Wallet/XionWallet";
+// import AppButton from "./AppButton";
+// import { RootState, useAppSelector } from "@/store";
+// import useAuth from "../auth/hook/useAuth";
+// import AvatarMenu from "./Avatar";
 
 interface IMobileMenu {
   isOpen: boolean;
@@ -23,9 +23,9 @@ interface IMobileMenu {
 }
 
 const MobileMenu: React.FC<IMobileMenu> = ({ isOpen, closeMobile, handleOutsideClick }) =>{
-  const navigate = useNavigate()
-  const {isAuthenticated} = useAppSelector((state:RootState)=>state.auth)
-  const {handleLogout} = useAuth()
+  // const navigate = useNavigate()
+  // const {isAuthenticated} = useAppSelector((state:RootState)=>state.auth)
+  // const {handleLogout} = useAuth()
   return(
     <AnimatePresence>
       {isOpen && (
@@ -56,13 +56,13 @@ const MobileMenu: React.FC<IMobileMenu> = ({ isOpen, closeMobile, handleOutsideC
             <Notification />
             <SwitchButton />
             {/* <WalletConnect/> */}
-            {/* <XionWallet/> */}
-            {
+            <XionWallet/>
+            {/* {
               isAuthenticated
               ?
               <AppButton label="Log Out" onClick={handleLogout} size={"lg"}/>:
             <AppButton label="Get Start" onClick={()=>navigate('/auth')} size={"lg"}/>
-            }
+            } */}
           </div>
         </motion.div>
       )}
@@ -76,8 +76,8 @@ interface ITopHeader {
 }
 
 const TopHeader: React.FC<ITopHeader> = ({ isOpen, closeMobile }) => {
-  const navigate = useNavigate()
-  const {isAuthenticated} = useAppSelector((state:RootState)=>state.auth)
+  // const navigate = useNavigate()
+  // const {isAuthenticated} = useAppSelector((state:RootState)=>state.auth)
   // const {handleLogout} = useAuth()
   return(
   <section className="p-3 flex items-center justify-between gap-2 lg:container lg:mx-auto">
@@ -87,14 +87,13 @@ const TopHeader: React.FC<ITopHeader> = ({ isOpen, closeMobile }) => {
       {/* <AppButton label="Connect" variant="default" /> */}
       <div className="flex items-center gap-4">
         {/* <WalletConnect/> */}
-        {/* <XionWallet/> */}
-        
-        {
+        <XionWallet/>
+        {/* {
               isAuthenticated
               ?
               <AvatarMenu/>:
             <AppButton label="Get Start" onClick={()=>navigate('/auth')} size={"lg"}/>
-            }
+            } */}
         <button onClick= {closeMobile} className="text-white">
           {isOpen ? <X className="text-warp-100 w-6 h-6" /> : <Menu className="text-warp-100 w-6 h-6" />}
         </button>
@@ -106,13 +105,13 @@ const TopHeader: React.FC<ITopHeader> = ({ isOpen, closeMobile }) => {
       <SwitchButton />
       {/* <AppButton label="Connect Wallet" variant="default" /> */}
       {/* <WalletConnect/> */}
-      {/* <XionWallet/> */}
-      {
+      <XionWallet/>
+      {/* {
               isAuthenticated
               ?
               <AvatarMenu/>:
               <AppButton label="Get Start" onClick={()=>navigate('/auth')} size={"lg"}/>
-            }
+            } */}
     </div>
   </section>
 );

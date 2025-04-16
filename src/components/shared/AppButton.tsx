@@ -23,7 +23,7 @@ export default function AppButton({
   disabled = false,
   leftIcon,
   onPress,
-  children, // ✅ Accept children
+  children, 
   ...rest 
 }: IAppButton) {
   return (

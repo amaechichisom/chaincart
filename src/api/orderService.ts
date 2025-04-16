@@ -26,15 +26,22 @@ export const orderService = baseDomain.injectEndpoints({
         { type: "Cart" },
       ],
     }),
-
     UpdateOrderStatus: build.mutation({
-      query: ({ orderId, status,buyerAddress }:{orderId:string, status:"release" | "cancel",buyerAddress:string}) => ({
-        url: `/order/escrow/${orderId}`, // `/api/order/${orderId}/escrow?state=${fundState}`,
+      query: ({ orderId, status }:{orderId:string, status:"release" | "cancel"}) => ({
+        url: `/order/${orderId}/status`,
         method: "PUT",
-        body: { status ,buyerAddress},
+        body: { status },
       }),
       invalidatesTags: ["Order", "Product"],
     }),
+    // UpdateOrderStatus: build.mutation({
+    //   query: ({ orderId, status,buyerAddress }:{orderId:string, status:"release" | "cancel",buyerAddress:string}) => ({
+    //     url: `/order/escrow/${orderId}`, // `/api/order/${orderId}/escrow?state=${fundState}`,
+    //     method: "PUT",
+    //     body: { status ,buyerAddress},
+    //   }),
+    //   invalidatesTags: ["Order", "Product"],
+    // }),
 
     OrderHistory: build.query({
       query: () => "/order",

@@ -1,0 +1,90 @@
+import React from 'react';
+import useWallet from './useWallet';
+
+export default function SignExample() {
+  const { signArb, bech32Address } = useWallet();
+
+  const handleSign = async () => {
+    try {
+      const message = `Sign this message to confirm ownership of wallet ${bech32Address}`;
+      const signature = await signArb(message);
+      console.log('Signed message:', signature);
+    } catch (error) {
+      console.error('Signing failed:', error);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={handleSign} className="px-4 py-2 bg-blue-500 text-white rounded">
+        Sign Message
+      </button>
+    </div>
+  );
+}
+import React from 'react';
+import useWallet from './useWallet';
+
+export default function LogoutExample() {
+  const { logout } = useWallet();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      console.log('Wallet disconnected');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded">
+        Disconnect Wallet
+      </button>
+    </div>
+  );
+}
+
+const messageToSign = `I approve initiating an escrow of ${amount} XION to ${sellerAddress}`;
+
+if (!signArb) {
+  throw new Error("Signing function is not available.");
+}
+
+const signature = await signArb(bech32Address, messageToSign);
+console.log("Off-chain signature:", signature);
+const messageToSign = `I approve initiating an escrow of ${amount} XION to ${sellerAddress}`;
+const signature = await signArb?.(bech32Address, messageToSign);
+
+if (!signature) {
+  throw new Error("Failed to generate off-chain signature.");
+}
+console.log("Off-chain signature:", signature);
+
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
+
+export default function useMeta() {
+  const [balance, setBalance] = useState<string>("0");
+
+  const getMetaBalance = () => {
+    return balance;
+  };
+
+  const fetchBalance = async (walletAddress: string) => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const balance = await provider.getBalance(walletAddress);
+      const formatted = ethers.utils.formatEther(balance);
+      setBalance(formatted);
+    } catch (error) {
+      console.error("Error fetching balance:", error);
+    }
+  };
+
+  return {
+    getMetaBalance, // returns string
+    fetchBalance, // you call this once with the wallet address
+  };
+}

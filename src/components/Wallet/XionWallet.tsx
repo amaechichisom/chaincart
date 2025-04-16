@@ -1,68 +1,253 @@
-// import { maskAddress } from "@/utils/maskAddress";
-// import { motion } from "framer-motion";
-// import AppButton from "../shared/AppButton";
+import { Abstraxion } from "@burnt-labs/abstraxion";
+import { useCallback, useEffect, useRef } from "react";
+import useWallet from "./useWallet";
+import { useWalletAuthMutation } from "@/api/authService";
+import { RootState, useAppDispatch, useAppSelector } from "@/store";
+import { useToast } from "@/hooks/useToast";
+import { IApiResponse, IUserResponse } from "@/@types/types";
+import { setAuthenticated } from "@/features/authSlice";
+import AuthStore from "@/utils/AuthStore";
+import { Button } from "../ui/button";
+import AppButton from "../shared/AppButton";
+import { maskAddress } from "@/utils/maskAddress";
+import Loading from "../shared/Loading";
+
+const XionWallet = () => {
+  const { 
+    setShow, 
+    bech32Address, 
+    isConnected, 
+    isConnecting,
+    logout 
+  } = useWallet();
+  
+  const [walletAuth, { isLoading }] = useWalletAuthMutation();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+  const toast = useToast();
+  const authInProgress = useRef(false);
+
+  const handleAuth = useCallback(async () => {
+    if (!bech32Address || authInProgress.current) return;
+
+    authInProgress.current = true;
+    toast.dismiss();
+    const loadingToast = toast.loading("Authenticating wallet...");
+
+    try {
+      const response: IApiResponse = await walletAuth({
+        walletAddress: bech32Address,
+      }).unwrap();
+
+      toast.dismiss(loadingToast);
+
+      if (response.status === 200) {
+        const successResponse = response.data as IUserResponse;
+        dispatch(
+          setAuthenticated({
+            isAuthenticated: true,
+            user: {
+              id: successResponse.accessToken,
+              roles: successResponse.result!.role,
+              walletAddress: successResponse.result!.walletAddress,
+            },
+          })
+        );
+        AuthStore.setAccessToken(successResponse.accessToken);
+        toast.success("Wallet connected successfully!");
+      } else {
+        toast.error(response.message || "Authentication failed", {
+          action: (
+            <Button onClick={handleAuth} variant="outline" size="sm">
+              Retry
+            </Button>
+          ),
+        });
+      }
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      toast.error("Wallet authentication failed. Please try again.", {
+        action: (
+          <Button onClick={handleAuth} variant="outline" size="sm">
+            Retry
+          </Button>
+        ),
+      });
+      console.error("Wallet Auth Error:", error);
+    } finally {
+      authInProgress.current = false;
+    }
+  }, [bech32Address, walletAuth, dispatch, toast]);
+
+  const handleConnect = useCallback(() => {
+    setShow(true);
+  }, [setShow]);
+
+  const handleDisconnect = useCallback(() => {
+    logout?.();
+    AuthStore.removeAccessToken();
+    dispatch(setAuthenticated({ isAuthenticated: false, user: null }));
+    setShow(false);
+    toast.success("Wallet disconnected successfully.");
+  }, [logout, dispatch, toast, setShow]);
+  
+  useEffect(()=>{
+    console.log({isConnected, isConnecting, bech32Address, isAuthenticated,authInProgress:authInProgress.current})
+  },[isConnected, isConnecting, bech32Address, isAuthenticated,authInProgress])
+  
+  useEffect(() => {
+    if (isConnected && !isConnecting && bech32Address && !isAuthenticated && !authInProgress.current) {
+      handleAuth();
+    }
+
+    if (!isConnected && isAuthenticated && !isConnecting) {
+      handleDisconnect();
+    }
+  }, [isConnected, isConnecting, bech32Address, isAuthenticated, handleAuth, handleDisconnect]);
+
+  if (isConnecting || isLoading) {
+    return <Loading text="Loading wallet..." />;
+  }
+
+  return (
+    <section>
+      <AppButton
+        isLoading={isLoading}
+        label={
+          bech32Address
+            ? `VIEW ACCOUNT ${maskAddress(bech32Address)}`
+            : "CONNECT XION WALLET"
+        }
+        onClick={handleConnect}
+      />
+      <Abstraxion 
+        onClose={() => setShow(false)} 
+      />
+    </section>
+  );
+};
+
+export default XionWallet;
+
 // import { Abstraxion } from "@burnt-labs/abstraxion";
+// import { useCallback, useEffect } from "react";
 // import useWallet from "./useWallet";
-// import { useNavigate } from "react-router-dom";
-// import { useEffect } from "react";
-
-
+// import { useWalletAuthMutation } from "@/api/authService";
+// import { RootState, useAppDispatch, useAppSelector } from "@/store";
+// import { useToast } from "@/hooks/useToast";
+// import { IApiResponse, IUserResponse } from "@/@types/types";
+// import { setAuthenticated } from "@/features/authSlice";
+// import AuthStore from "@/utils/AuthStore";
+// import { Button } from "../ui/button";
+// import AppButton from "../shared/AppButton";
+// import { maskAddress } from "@/utils/maskAddress";
+// import Loading from "../shared/Loading";
 
 // const XionWallet = () => {
-//   const { setShow, bech32Address, isConnected, isConnecting } = useWallet();
-//   const navigate = useNavigate()
-//   useEffect(() => {
-//     if(isConnected){
-//       console.log(bech32Address)
-//     }
-//   }, [isConnected,navigate]);
-//   useEffect(() => {
-//     const params = new URLSearchParams(window.location.search);
-//     const allParams: Record<string, string> = {};
+//   const { 
+//     setShow, 
+//     bech32Address, 
+//     isConnected, 
+//     isConnecting,
+//     logout 
+//   } = useWallet();
   
-//     params.forEach((value, key) => {
-//       allParams[key] = value;
-//     });
-//     console.log({ allParams });
-//   }, []);
-  
-  
-  
-//   const handleConnect = () => {
-//     setShow(true);
-//   };
+//   const [walletAuth, { isLoading }] = useWalletAuthMutation();
+//   const dispatch = useAppDispatch();
+//   const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+//   const toast = useToast();
 
-//   const handleDisconnect = () => {
-//     setShow(false);
-//     if(!isConnected){
-//       navigate("/",{replace:true});
+//   const handleAuth = useCallback(async () => {
+//     if (!bech32Address) return;
+
+//     toast.dismiss();
+//     const loadingToast = toast.loading("Authenticating wallet...");
+
+//     try {
+//       const response: IApiResponse = await walletAuth({
+//         walletAddress: bech32Address,
+//       }).unwrap();
+
+//       toast.dismiss(loadingToast);
+
+//       if (response.status === 200) {
+//         const successResponse = response.data as IUserResponse;
+//         dispatch(
+//           setAuthenticated({
+//             isAuthenticated: true,
+//             user: {
+//               id: successResponse.accessToken,
+//               roles: successResponse.result!.role,
+//               walletAddress: successResponse.result!.walletAddress,
+//             },
+//           })
+//         );
+//         AuthStore.setAccessToken(successResponse.accessToken);
+//         toast.success("Wallet connected successfully!");
+//       } else {
+//         toast.error(response.message || "Authentication failed", {
+//           action: (
+//             <Button onClick={handleAuth} variant="outline" size="sm">
+//               Retry
+//             </Button>
+//           ),
+//         });
+//       }
+//     } catch (error) {
+//       toast.dismiss(loadingToast);
+//       toast.error("Wallet authentication failed. Please try again.", {
+//         action: (
+//           <Button onClick={handleAuth} variant="outline" size="sm">
+//             Retry
+//           </Button>
+//         ),
+//       });
+//       console.error("Wallet Auth Error:", error);
 //     }
-//   };
+//   }, [bech32Address, walletAuth, dispatch, toast]);
+
+//   const handleConnect = useCallback(() => {
+//     setShow(true);
+//   }, [setShow]);
+
+//   const handleDisconnect = useCallback(() => {
+//     logout?.();
+//     AuthStore.removeAccessToken();
+//     dispatch(setAuthenticated({ isAuthenticated: false, user: null }));
+//     setShow(false);
+//     toast.success("Wallet disconnected successfully.");
+//   }, [logout, dispatch, toast, setShow]);
+
+//   useEffect(() => {
+//     if (isConnected && !isConnecting && bech32Address && !isAuthenticated) {
+//       handleAuth();
+//     }
+
+//     if (!isConnected && isAuthenticated && !isConnecting) {
+//       handleDisconnect();
+//     }
+//   }, [isConnected, isConnecting, bech32Address, isAuthenticated, handleAuth, handleDisconnect]);
+
+//   if (isConnecting || isLoading) {
+//     return <Loading text="Loading wallet..." />;
+//   }
 
 //   return (
-//     <div>
-//       {isConnected ? (
-//         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-//           <AppButton
-//             onClick={handleDisconnect}
-//             variant="destructive"
-//             label={`Disconnect ${maskAddress(bech32Address!)}`}
-//           />
-//         </motion.div>
-//       ) : (
-//         <div className="flex gap-4">
-//           <AppButton
-//             onClick={handleConnect}
-//             isLoading={isConnecting} 
-//             label={bech32Address ? bech32Address : "Connect Xion Wallet"}
-//             variant="default"
-//           />
-//         </div>
-//       )}
-//       <Abstraxion  onClose={() => setShow(false)} />
-//     </div>
+//     <section>
+//       <AppButton
+//         isLoading={isLoading}
+//         label={
+//           bech32Address
+//             ? `VIEW ACCOUNT ${maskAddress(bech32Address)}`
+//             : "CONNECT XION WALLET"
+//         }
+//         onClick={handleConnect}
+//       />
+//       <Abstraxion 
+//         onClose={() => setShow(false)} 
+//       />
+//     </section>
 //   );
- 
 // };
 
 // export default XionWallet;

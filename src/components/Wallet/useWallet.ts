@@ -1,18 +1,21 @@
-// import { useAbstraxionAccount, useModal } from '@burnt-labs/abstraxion';
+import { useAbstraxionAccount, useAbstraxionClient, useAbstraxionSigningClient, useModal } from '@burnt-labs/abstraxion';
 // import { useEffect } from 'react';
-// // import { Abstraxion } from "abstraxion";
-// // import { Abstraxion } from "@burnt-labs/abstraxion";
 
-// export default function useWallet() {
-//     const { data: { bech32Address }, isConnected, isConnecting } = useAbstraxionAccount();
-//     const [, setShow] = useModal();
-//     // const [isOpen, setIsOpen] = useState(false);
-//         // console.log(data)
-//     // watch isConnected and isConnecting
-//     // only added for testing
-//     useEffect(() => {
-//       console.log({ isConnected, isConnecting,bech32Address });
-//     }, [isConnected, isConnecting])
+export default function useWallet() {
+  const { data: { bech32Address }, isConnected, isConnecting } = useAbstraxionAccount();
+  const { client: signingClient, signArb, logout } = useAbstraxionSigningClient();
+  const { client: queryClient} = useAbstraxionClient();
+  const [, setShow] = useModal();
 
-//   return { bech32Address,setShow,isConnected,isConnecting}
-// }
+
+  // useEffect(() => {
+  //   console.log({ isConnected, isConnecting, bech32Address });
+  //   // console.log({signingClient,signArb,logout})
+  // }, [isConnected, isConnecting, bech32Address]);
+
+  const openWalletModal = () => {
+    setShow(true);
+  };
+
+  return { bech32Address, setShow, isConnected, isConnecting, signingClient, signArb, logout, queryClient, openWalletModal };
+}

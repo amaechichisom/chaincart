@@ -1,7 +1,8 @@
 import { IProduct } from "@/@types/types";
 import AppButton from "../shared/AppButton";
 import { useProductActions } from "@/hooks/useProductActions";
-import { useXionAction } from "@/hooks/useXionAction";
+// import { useXionAction } from "@/hooks/useXionAction";
+import { useMetaAction } from "@/hooks/useMetaAction";
 
 interface ProductInfoProps extends IProduct {
   oldPrice?: number;
@@ -20,8 +21,8 @@ export default function ProductInfo({
   document_of_land,
 }: ProductInfoProps) {
   const {  isAddingToCart,  handleAddToCart } = useProductActions(_id);
-    const {handleBuyXionOrder,decrement,increment,quantity,orderConfirmLoad,orderLoad,keepLoad}=useXionAction()
-
+    // const {decrement,increment,quantity,orderConfirmLoad,orderLoad,keepLoad}=useXionAction()
+    const {handleBuyMetaOrder,decrement,increment,keepLoad,orderConfirmLoad,orderLoad,quantity} = useMetaAction()
   return (
     <div className="w-full p-4 md:p-6 space-y-4">
       <h1 className="text-lg md:text-3xl font-bold">{title}</h1>
@@ -57,7 +58,7 @@ export default function ProductInfo({
 
       <div className="flex flex-col sm:flex-row gap-3 mt-6">
         <AppButton label="Add To Cart" isLoading={isAddingToCart} onClick={handleAddToCart} disabled={quantity === 0} />
-        <AppButton label="Buy Now" disabled={quantity === 0} onClick={()=>handleBuyXionOrder(_id,quantity)} isLoading={orderLoad || orderConfirmLoad || keepLoad} />
+        <AppButton label="Buy Now" disabled={quantity === 0} onClick={()=>handleBuyMetaOrder(_id,quantity)} isLoading={orderLoad || orderConfirmLoad || keepLoad} />
       </div>
     </div>
   );

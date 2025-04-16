@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { RootState, useAppSelector } from "@/store";
 import AppButton from "./AppButton";
-import { WalletConnect } from "../Wallet/WalletConnect";
+// import { WalletConnect } from "../Wallet/WalletConnect";
 
 interface FinishedCardProps {
   image: string;
@@ -41,15 +41,16 @@ const FinishedCard: React.FC<FinishedCardProps> = ({
         <p className="text-gray-600 text-sm truncate">{description}</p>
         <p className="text-gray-400 text-xs mt-2">{date}</p>
 
-          {    isAuthenticated ? (
+          {    isAuthenticated && (
               <AppButton
                 label={btnLabel}
                 onClick={()=>{}}
                 className="bg-primary text-white w-full mt-3"
               />
-            ) : (
-              <WalletConnect buttonProps={{ className: "w-full mt-3", }} />
-            )
+            ) 
+            // : (
+              // <WalletConnect buttonProps={{ className: "w-full mt-3", }} />
+            // )
           }
         {/* <Button variant="default" className="mt-3 w-full">
           {btnLabel}

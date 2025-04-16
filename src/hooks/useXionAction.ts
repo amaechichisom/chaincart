@@ -23,10 +23,6 @@ export function useXionAction() {
     const increment = () => setQuantity((prev) => prev + 1);
     const decrement = () => setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
 
-
-
-
-
   const handleBuyFromXion = useCallback(async (productId: string, quantity: number) => {
     setKeepLoad(true);
   

@@ -196,7 +196,9 @@ export type IXionTransact ={
 //? Make all properties optional
 // type TCart = Partial<IProduct>;
 
-
+// type IBtn {
+//   [key:string]:string
+// }
 // const cartItem: TCart = {
 //   price: 100
 //   // 'id' and 'title' are omitted, but the rest are optional

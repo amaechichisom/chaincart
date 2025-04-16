@@ -84,9 +84,9 @@ export default function PostAdForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
-    if (!formData.mapping_location) {
-      toast.error("Please select a location");
+    console.log(formData.mapping_location)
+    if (!formData.mapping_location || formData.mapping_location.lat == 0 || formData.mapping_location.lng == 0) {
+      toast.error("Please select a valid location");
       return;
     }
   
