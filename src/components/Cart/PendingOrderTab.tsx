@@ -12,7 +12,7 @@ export default function PendingOrderTab() {
       <div className="w-full mx-auto py-4">
         <Card>
           <CardContent>
-            {isLoading ? (
+            {(isLoading && isFetching) ? (
               <Loading text="Fetching purchase history..." />
             ) : error ? (
               <p className="text-center text-red-500">Failed to load history.</p>

@@ -28,6 +28,7 @@ const XionWallet = () => {
   const authInProgress = useRef(false);
 
   const handleAuth = useCallback(async () => {
+    if(authInProgress.current) return;
     if (!bech32Address || authInProgress.current) return;
 
     authInProgress.current = true;

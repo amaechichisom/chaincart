@@ -17,7 +17,7 @@ console.log({data, error, isLoading ,isFetching})
     <div className="w-full mx-auto py-4">
       <Card>
         <CardContent>
-          {isLoading ? (
+          {(isLoading && isFetching) ? (
             <Loading text="Fetching purchase history..." />
           ) : error ? (
             <p className="text-center text-red-500">Failed to load history.</p>
