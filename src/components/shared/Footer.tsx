@@ -3,15 +3,19 @@ import SocialIcons from "./SocialIcons";
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-center py-6">
-      <SocialIcons />
+    <footer className="bg-neutral-50 text-center py-6">
+      <div className="container mx-auto flex justify-between items-center text-neutral-500 text-sm font-light">
+        <SocialIcons />
 
-      <p className="text-gray-400 text-sm mt-4">Copyright © 2025 © All rights reserved ChainCart</p>
-      <div className="flex justify-center space-x-4 text-sm text-gray-500 mt-2">
-        <Link to='/' className="!text-main hover:!text-primary">Privacy Policy</Link>
-        <Link to='/' className="!text-main hover:!text-primary">Terms and Conditions</Link>
-        <Link to='/' className="!text-main hover:!text-primary">Cookie</Link>
+        <div className="flex justify-center items-center gap-4 text-sm">
+          <p className="text-sm">Copyright © 2025 © All rights reserved ChainCart</p>
+          <Link to='/' className="text-neutral-500 text-sm font-light">Privacy Policy</Link>
+        </div>
       </div>
+        
+
+      
+      
     </footer>
   );
 }

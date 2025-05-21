@@ -1,8 +1,9 @@
-import FeatureList from '@/components/shared/FeatureList';
+// import FeatureList from '@/components/shared/FeatureList';
 import Footer from '@/components/shared/Footer';
 import Header from '@/components/shared/Header';
-import NewsletterSection from '@/components/shared/NewsletterSection';
-import SubHeader from '@/components/shared/SubHeader';
+
+// import NewsletterSection from '@/components/shared/NewsletterSection';
+// import SubHeader from '@/components/shared/SubHeader';
 import { Outlet } from 'react-router-dom';
 
 
@@ -11,13 +12,14 @@ export default function Layout() {
 
 
     <div className="flex flex-col min-h-screen w-full">
-      <SubHeader/>
+      {/* <SubHeader/> */}
       <Header />
       <main className="mt-2">
         <Outlet />
       </main>
-      <NewsletterSection />
-      <FeatureList />
+      {/* <NewsletterSection />
+      <FeatureList /> */}
+      
       <Footer />
     </div>
 

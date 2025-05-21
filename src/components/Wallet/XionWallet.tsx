@@ -29,7 +29,7 @@ const XionWallet = () => {
 
   const handleAuth = useCallback(async () => {
     if(authInProgress.current) return;
-    if (!bech32Address || authInProgress.current) return;
+    if (!bech32Address) return;
 
     authInProgress.current = true;
     toast.dismiss();
@@ -93,11 +93,11 @@ const XionWallet = () => {
   }, [logout, dispatch, toast, setShow]);
   
   useEffect(()=>{
-    console.log({isConnected, isConnecting, bech32Address, isAuthenticated,authInProgress:authInProgress.current})
-  },[isConnected, isConnecting, bech32Address, isAuthenticated,authInProgress])
+    console.log({isConnected, isConnecting, bech32Address, isAuthenticated, authInProgress: authInProgress.current})
+  },[isConnected, isConnecting, bech32Address, isAuthenticated]);
   
   useEffect(() => {
-    if (isConnected && !isConnecting && bech32Address && !isAuthenticated && !authInProgress.current) {
+    if (isConnected && !isConnecting && bech32Address && !isAuthenticated) {
       handleAuth();
     }
 
@@ -107,7 +107,7 @@ const XionWallet = () => {
   }, [isConnected, isConnecting, bech32Address, isAuthenticated, handleAuth, handleDisconnect]);
 
   if (isConnecting || isLoading) {
-    return <Loading text="Loading wallet..." />;
+    return <Loading/>;
   }
 
   return (

@@ -1,5 +1,6 @@
 import { CategoryCardProps } from "@/@types/types"
 import * as IMG from './../assets/index'
+import { title } from "process"
 
 export const navbarItemsContent = {
     menu: [
@@ -52,29 +53,37 @@ export const navbarItemsContent = {
 
 export const headerMenu = [
     {
-        name: "Home",
-        href: "/",
+        name: "Apartment",
+        href: "/category?search=apartment",
     },
     {
-        name: "Shop",
-        href: "/shop",
+        name: "Flat",
+        href: "/category?search=flat",
     },
     {
-        name: "Duplex/High Rise",
-        href: "/",
-        // href: "/duplex",
+        name: "Land",
+        href: "/category?search=land",
     },
     {
-        name: "Lands",
-        href: "/",
-        // href: "/lands",
+        name: "Duplex",
+        href: "/category?search=duplex",
     },
     {
-        name: "Bungalows",
-        href: "/",
-        // href: "/bungalows",
+        name: "Bungalow",
+        href: "/category?search=bungalow",
+    },
+    {
+        name: "Bedsitter",
+        href: "/category?search=bedsitter",
+    },
+    {
+        name: "High rise",
+        href: "/category?search=high-rise",
+    },
+    {
+        name: "Mini Flat",
+        href: "/category?search=mini-flat",
     }
-    
 ]
 
 export const categoryCardData:CategoryCardProps[] =[
@@ -307,4 +316,132 @@ export const shopProptiesData = [
     specialOfferEnds: "08:50:02",
   };
   
-  
+  export const apartmentData = [
+  { 
+    src: IMG.ApartmentOne, 
+    title: "2bdrm Apartment in Lekki", 
+    price: 32000, 
+    discountPrice: 27000, 
+    discountPercentage: Math.round(((32000 - 27000) / 32000) * 100)
+  },
+  { 
+    src: IMG.ApartmentTwo, 
+    title: "3bdrm Apartment in Ikoyi", 
+    price: 40000 
+  },
+  { 
+    src: IMG.ApartmentThree, 
+    title: "1bdrm Apartment in Yaba", 
+    price: 22000, 
+    discountPrice: 18700, 
+    discountPercentage: Math.round(((22000 - 18700) / 22000) * 100)
+  },
+  { 
+    src: IMG.ApartmentFour, 
+    title: "Studio Apartment in VI", 
+    price: 25000 
+  },
+  { 
+    src: IMG.ApartmentOne, 
+    title: "Mini Flat in Ajah", 
+    price: 28000, 
+    discountPrice: 21000, 
+    discountPercentage: Math.round(((28000 - 21000) / 28000) * 100)
+  },
+];
+
+export const landData = [
+  { 
+    src: IMG.ApartmentOne, 
+    title: "3 Acres In Lekki", 
+    price: 37000, 
+    discountPrice: 29600, 
+    discountPercentage: Math.round(((37000 - 29600) / 37000) * 100)
+  },
+  { 
+    src: IMG.ApartmentTwo, 
+    title: "5 Hectares in Magodo", 
+    price: 40000, 
+    discountPrice: 32000, 
+    discountPercentage: Math.round(((40000 - 32000) / 40000) * 100)
+  },
+  { 
+    src: IMG.ApartmentThree, 
+    title: "Farmland in Lagos", 
+    price: 25000 
+  },
+  { 
+    src: IMG.ApartmentFour, 
+    title: "5 Plots in Ibadan", 
+    price: 34000 
+  },
+  { 
+    src: IMG.ApartmentOne, 
+    title: "25 Acres in Ilishan", 
+    price: 28000, 
+    discountPrice: 21000, 
+    discountPercentage: Math.round(((28000 - 21000) / 28000) * 100)
+  },
+];
+
+export const topCategories = [
+  {
+    title: "Lands",
+    src: IMG.SaleIcon,
+  },
+  {
+    title: "Apartments",
+    src: IMG.ApartmentIcon,
+  },
+  {
+    title: "Hotels",
+    src: IMG.HotelIcon,
+  },
+  {
+    title: "Duplex",
+    src: IMG.DuplexIcon,
+  },
+  {
+    title: "Bungalow",
+    src: IMG.BungalowIcon,
+  },
+  {
+    title: "Guesthouse",
+    src: IMG.GuesthouseIcon,
+  },
+  {
+    title: "Condos",
+    src: IMG.CondoIcon,
+  },
+];
+
+export const topSellers = [
+  {
+    title: "Adron Homes",
+    src: IMG.AdronLogo,
+  },
+  {
+    title: "Brit Properties",
+    src: IMG.BritLogo,
+  },
+  {
+    title: "Dradrock Limited",
+    src: IMG.DradrockLogo,
+  },
+  {
+    title: "First Real Value",
+    src: IMG.FrvLogo,
+  },
+  {
+    title: "Landwey Investment",
+    src: IMG.LandweyLogo,
+  },
+  {
+    title: "OAK Properties",
+    src: IMG.OakLogo,
+  },
+  {
+    title: "UPDC",
+    src: IMG.UpdcLogo,
+  }
+]

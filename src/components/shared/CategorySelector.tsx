@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { headerMenu } from "@/CONSTANT/data";
 
-const categories = ["Lands", "Duplex", "Mini Flats", "Bungalows"];
 
 const CategorySelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,9 +13,6 @@ const CategorySelector: React.FC = () => {
   return (
     <div className="relative flex flex-col items-start gap-2">
       <div className="flex items-center gap-2 border rounded-lg p-2">
-        <Button size="icon">
-          <Menu className="w-5 h-5" />
-        </Button>
 
         <Button
           className="flex items-center gap-2 text-white"
@@ -49,16 +46,16 @@ const CategorySelector: React.FC = () => {
             )}
           >
             <ul className="py-2" onMouseLeave={() => setIsOpen(false)}>
-              {categories.map((category) => (
+              {headerMenu.map((category, index) => (
                 <li
-                  key={category}
+                  key={index}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer transition-colors text-warp-100"
                   onClick={() => {
-                    setSelectedCategory(category);
+                    setSelectedCategory(category.name);
                     setIsOpen(false);
                   }}
                 >
-                  {category}
+                  {category.name}
                 </li>
               ))}
             </ul>
