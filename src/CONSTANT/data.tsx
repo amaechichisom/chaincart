@@ -1,6 +1,5 @@
 import { CategoryCardProps } from "@/@types/types"
 import * as IMG from './../assets/index'
-import { title } from "process"
 
 export const navbarItemsContent = {
     menu: [

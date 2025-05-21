@@ -1,5 +1,3 @@
-import { LandingOne } from '@/assets';
-import { icon } from 'leaflet';
 export {default as Apartment} from './Apartment.svg'
 export {default as Household_Need} from './Household_Need.svg'
 export {default as Meat_and_Seafood} from './Meat_and_Seafood.svg'

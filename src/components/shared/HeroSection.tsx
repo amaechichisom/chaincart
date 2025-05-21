@@ -1,4 +1,4 @@
-import { LandingOne, LandingPageOne, LandingPageThree, LandingPageTwo, LandingThree, LandingTwo } from "@/assets";
+import { LandingPageOne, LandingPageThree, LandingPageTwo } from "@/assets";
 import React from "react";
 
 const HeroSection: React.FC = () => {

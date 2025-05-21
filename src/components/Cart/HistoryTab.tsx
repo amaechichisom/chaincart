@@ -18,7 +18,7 @@ console.log({data, error, isLoading ,isFetching})
       <Card>
         <CardContent>
           {(isLoading && isFetching) ? (
-            <Loading text="Fetching purchase history..." />
+            <Loading />
           ) : error ? (
             <p className="text-center text-red-500">Failed to load history.</p>
           ) : data?.data?.length > 0 ? (
