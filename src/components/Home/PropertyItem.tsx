@@ -2,7 +2,7 @@ import { ApartmentOne } from '@/assets'
 
 function PropertyItem({ src, title, price, discountPrice, discountPercentage}: {src?: string, title?: string, price?: number, discountPrice?: number, discountPercentage?: number}) {
    return (
-    <div className="flex flex-col items-start justify-center gap-2 bg-white shadow-md rounded-lg p-2 pb-3 w-full max-w-xs sm:max-w-[200px] md:max-w-56 max-h-64 h-auto mx-auto lg:mx-0">
+    <div className="flex flex-col items-start justify-center gap-2 bg-white shadow-md rounded-lg p-1 pb-3 w-full max-w-xs sm:max-w-[200px] md:max-w-56 max-h-64 h-auto mx-auto lg:mx-0">
       <div className="relative w-full h-32 sm:h-36 md:h-40">
         <img
           src={src ?? ApartmentOne}
