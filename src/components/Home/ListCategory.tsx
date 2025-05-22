@@ -13,7 +13,7 @@ function ListCategory({title, data, link}: {title?: string, data?: any, link?: s
                 </Link>
             </div>
 
-            <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
                 {(data || [...Array(5)]).map((item:any, idx:number) => (
                     <CategoryItem key={idx} {...item} />
                 ))}
