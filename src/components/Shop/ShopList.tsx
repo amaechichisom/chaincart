@@ -16,10 +16,10 @@ export default function ShopList() {
                 loadingText="Loading products..."
                 errorText="Failed to load products. Please try again."
               />
-    <div className="grid grid-cols-3 gap-6 p-6">
+    <div className="grid grid-cols-3 gap-6 p-4 pt-2">
       
       {data?.data?.products?.length > 0 ? (
-            data?.data.products.slice(0,6).map((property: ShopCardProps, index: number) => (
+            data?.data.products.slice(0,100).map((property: ShopCardProps, index: number) => (
               <ShopCard key={index} {...property} />
             ))
           ) : (

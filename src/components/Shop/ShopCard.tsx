@@ -1,11 +1,12 @@
 import { IProduct } from "@/@types/types";
+import { ApartmentOne } from "@/assets";
 import { Link } from "react-router-dom";
 
 export interface ShopCardProps extends IProduct {
   price: number;
   discountPrice?: number;
   discount?: number;
-  inStock: boolean;
+  inStock?: boolean;
 }
 
 export default function ShopCard({
@@ -14,49 +15,38 @@ export default function ShopCard({
   price,
   discountPrice,
   discount,
-  stock,
   _id,
 }: ShopCardProps) {
   return (
-    <div className="border p-4 rounded-lg shadow-sm bg-white relative">
-      {discount && (
-        <span className="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">
-          {discount}%
-        </span>
-      )}
-
-      <img
-        src={image_of_land}
-        alt={title}
-        className="w-full h-40 object-cover rounded-md"
-      />
-
-      <h3 className="text-sm font-semibold mt-2">{title}</h3>
-
-      {stock > 0 ? (
-        <p className="text-primary text-xs">IN STOCK {stock}</p>
-      ) : (
-        <p className="text-red-500 text-xs">OUT OF STOCK</p>
-      )}
-
-      <div className="flex items-center space-x-2 mt-2">
-        {discountPrice ? (
-          <>
-            <p className="text-red-500 font-bold">${discountPrice}</p>
-            <p className="line-through text-gray-400 text-sm">{price} XION</p>
-          </>
-        ) : (
-          <p className="font-bold">{price} XION</p>
+    <Link to={`/shop/${_id}`}>
+      <div className="flex flex-col items-start justify-center gap-2 bg-white shadow-md rounded-lg p-1 pb-3 w-full max-w-xs sm:max-w-[200px] md:max-w-56 max-h-64 h-auto mx-auto lg:mx-0">
+      <div className="relative w-full h-32 sm:h-36 md:h-40">
+        <img
+          src={image_of_land ?? ApartmentOne}
+          alt="Property"
+          className="w-full h-full object-cover rounded-lg shadow-lg"
+        />
+        {discount && (
+          <p className="absolute top-2 right-2 bg-[#E0F3FE] text-primary text-xs px-2 py-1 rounded-2xl font-semibold">
+            {discount}% OFF
+          </p>
         )}
       </div>
 
-      <Link
-        to={`/shop/${_id}`}
-        className="mt-3 block bg-border !text-black text-center py-2 rounded-md text-sm font-medium
-         hover:!text-white hover:bg-primary transition ease-in-out duration-300"
-      >
-        View Details
-      </Link>
+      <p className="font-semibold text-xs sm:text-sm text-neutral-900 px-2 truncate w-full">
+        {title || 'Not set'}
+      </p>
+      <div className="flex items-center justify-between w-full px-2">
+        <p className="font-semibold text-xs sm:text-sm text-neutral-500">
+          ${price || 'Not set'}
+        </p>
+        {discountPrice && (
+          <p className="font-light text-xs text-neutral-500 line-through">
+            ${discountPrice || 'Not set'}
+          </p>
+        )}
+      </div>
     </div>
+    </Link>
   );
 }

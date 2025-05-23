@@ -1,7 +1,6 @@
 import {
     Pagination,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
@@ -12,18 +11,18 @@ import {
 export default function ShopPagination() {
   return (
     <Pagination>
-    <PaginationContent>
+    <PaginationContent className="text-neutral-500">
       <PaginationItem>
-        <PaginationPrevious href="#" />
+        <PaginationPrevious href="#" className="text-neutral-500"/>
       </PaginationItem>
       <PaginationItem>
-        <PaginationLink href="#">1</PaginationLink>
+        <PaginationLink href="#" className="text-neutral-500">1</PaginationLink>
       </PaginationItem>
-      <PaginationItem>
+      {/* <PaginationItem>
         <PaginationEllipsis />
-      </PaginationItem>
+      </PaginationItem> */}
       <PaginationItem>
-        <PaginationNext href="#" />
+        <PaginationNext href="#" className="text-neutral-500"/>
       </PaginationItem>
     </PaginationContent>
   </Pagination>

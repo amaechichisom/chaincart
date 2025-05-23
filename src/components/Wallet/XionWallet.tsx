@@ -117,7 +117,7 @@ const XionWallet = () => {
         label={
           bech32Address
             ? `VIEW ACCOUNT ${maskAddress(bech32Address)}`
-            : "CONNECT XION WALLET"
+            : "Sign In"
         }
         onClick={handleConnect}
       />
