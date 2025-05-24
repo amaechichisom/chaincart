@@ -85,6 +85,25 @@ export const headerMenu = [
     }
 ]
 
+export const profileHeaderMenu = [
+    {
+        name: "My Profile",
+        href: "/seller",
+    },
+    {
+        name: "My Listings",
+        href: "/seller/listing",
+    },
+    {
+        name: "Settings",
+        href: "/seller/settings",
+    },
+    {
+        name: "Logout",
+        href: "/logout",
+    }
+]
+
 export const categoryCardData:CategoryCardProps[] =[
     {
         image: IMG.Apartment,

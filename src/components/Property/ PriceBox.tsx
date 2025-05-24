@@ -3,7 +3,6 @@ import AppButton from "../shared/AppButton";
 import { InputField } from "../shared/InputField";
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle,

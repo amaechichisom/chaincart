@@ -59,6 +59,7 @@
   --color-warp-100: #122442;
   --input-secondary: #B5A398;
   --main: #008ECC;
+  --light-blue: #F3F8FF;
 }
 
 .font-manrope {
@@ -193,6 +194,7 @@ button:focus-visible {
   --color-sidebar-ring: var(--sidebar-ring);
   --color-input-secondary: var(--input-secondary);
   --color-main: var(--main);
+  --color-light-blue: var(--light-blue);
 }
 
 @layer base {

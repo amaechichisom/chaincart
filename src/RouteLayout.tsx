@@ -19,6 +19,8 @@ const Product = lazy(() => import("./page/Product"));
 const Seller = lazy(() => import("./page/Seller"));
 const Buyer = lazy(() => import("./page/Buyer"));
 const AuthPage = lazy(() => import("./page/AuthPage"));
+const Listing = lazy(() => import("./page/Listing"));
+// const NotFound = lazy(() => import("./page/NotFound")); 
 
 const LazyWrapper = (Component: React.ComponentType) => (
   <Suspense fallback={<Preload />}>
@@ -27,39 +29,37 @@ const LazyWrapper = (Component: React.ComponentType) => (
     </ErrorBoundary>
   </Suspense>
 );
-
-export default function RouteLayout() {
-  return createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        <Route path="/" element={<Layout />}>
-          <Route index element={LazyWrapper(App)} />
-          <Route path="/category" element={<CategoryPage />} />
+ export default function RouteLayout() {
+    return createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<Layout />}>
+        <Route index element={LazyWrapper(App)} />
+        <Route path="auth" element={LazyWrapper(AuthPage)} />
+         <Route path="/category" element={<CategoryPage />} />
           <Route path="/property">
             <Route index element={<PropertyDetailPage />} />
             <Route path=":id" element={<PropertyDetailPage />} />
           </Route>
-          <Route path="/auth" element={LazyWrapper(AuthPage)} />
-          <Route
-            element={
-              <ProtectedRoutes allowedRoles={[Roles.BUYER, Roles.SELLER]} />
-            }
-            path="shop"
-          >
-            <Route index element={LazyWrapper(Shop)} />
-            <Route path="buyer_cart" element={LazyWrapper(Buyer)} />
-            <Route path=":productId" element={LazyWrapper(Product)} />
-            <Route path="product/:productId" element={LazyWrapper(Cart)} />
-          </Route>
-          <Route
-            element={<ProtectedRoutes allowedRoles={[Roles.SELLER]} />}
-            path="seller"
-          >
-            <Route index element={LazyWrapper(Seller)} />
-          </Route>
+
+        <Route element={<ProtectedRoutes allowedRoles={[Roles.BUYER, Roles.SELLER]} />} path="shop">
+          <Route index element={LazyWrapper(Shop)} />
+          <Route path="buyer_cart" element={LazyWrapper(Buyer)} />
+          <Route path=":productId" element={LazyWrapper(Product)} />
+          <Route path="product/:productId" element={LazyWrapper(Cart)} />
         </Route>
-        {/* <Route path="*" element={LazyWrapper(NotFound)} /> */}
-      </>
-    )
-  );
-}
+
+        <Route element={<ProtectedRoutes allowedRoles={[Roles.SELLER]} />} path="seller">
+          <Route index element={LazyWrapper(Seller)} />
+          <Route path="listing" element={LazyWrapper(Listing)} />
+        </Route>
+      </Route>
+
+      {/* Optional 404 fallback */}
+      {/* <Route path="*" element={LazyWrapper(NotFound)} /> */}
+    </>
+  )
+)
+ };
+
+

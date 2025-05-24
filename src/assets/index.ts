@@ -1,3 +1,4 @@
+
 export {default as Apartment} from './Apartment.svg'
 export {default as Household_Need} from './Household_Need.svg'
 export {default as Meat_and_Seafood} from './Meat_and_Seafood.svg'
@@ -58,3 +59,10 @@ export {default as PropertyFour} from './PropertyFour.svg'
 export {default as ProprtyTwo} from './ProprtyTwo.svg'
 
 
+export {default as Copy} from './copy.svg'
+export {default as ProfilePic} from './profile-pic.png'
+export {default as CalendarIcon} from './calendar-icon.svg'
+export {default as PlusIcon} from './plus-icon.svg'
+export {default as ListIcon} from './list-icon.svg'
+export {default as GridIcon} from './grid-icon.svg'
+export {default as EyeIcon} from './eye-icon.svg'

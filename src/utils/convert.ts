@@ -10,3 +10,7 @@ export function xionToUxion(amount: number | string): string {
   
         // const formattedAmount = xionToUxion(amount);
         // const formattedAmount = Math.floor(Number(amount) * 1e6).toString();
+
+export function formatWithCommas(amount: number | string): string {
+  return Number(amount).toLocaleString();
+}

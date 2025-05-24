@@ -19,7 +19,7 @@ const collageImages = [
 
 export default function ImageCollage() {
   return (
-    <div className="grid grid-cols-3 gap-2 h-[300px] md:h-[400px] relative">
+    <div className="grid grid-cols-3 gap-2 h-[300px] md:h-[500px] relative mb-10">
       <div className="col-span-2 h-full">
         <img
           src={collageImages[0]}
