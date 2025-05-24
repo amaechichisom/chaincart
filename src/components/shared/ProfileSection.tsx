@@ -1,14 +1,16 @@
 import { Clipboard } from "lucide-react";
-import { Button } from "../ui/button";
+// import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card } from "../ui/card";
 import { RootState, useAppSelector } from "@/store";
 import { maskAddress } from "@/utils/maskAddress";
-import { useGetXionBalanceQuery } from "@/api/xionService";
-import {  useState } from "react";
+// import { useGetXionBalanceQuery } from "@/api/xionService";
+// import {  useState } from "react";
+import { toast } from "sonner";
+import { Copy, ProfilePic } from "@/assets";
 // import useMeta from "@/hooks/useMeta";
 
-const ProfileSection = () => {
+const ProfileSection = ({image}: {image?: string}) => {
   // const { getMetaBalance } = useMeta();
   // const [balance, setBalance] = useState<string | undefined>("0.00");
   const { user } = useAppSelector((state: RootState) => state.auth);
@@ -18,75 +20,71 @@ const ProfileSection = () => {
   );
   
   
-  const { data } = useGetXionBalanceQuery(address, { skip: !address });
-  const balance = data?.data?.balance || "0.00";
-  // useEffect(() => {
-  //   if (address) {
-  //     getMetaBalance(address!)
-  //     .then((bal) => {
-  //       console.log(bal)
-  //       setBalance(bal)
-  //     });
-  //     console.log({ balance });
-  //   }
-  // }, [address, getMetaBalance, balance]);
-
-  const [copied, setCopied] = useState(false);
+  // const { data } = useGetXionBalanceQuery(address, { skip: !address });
+  // const balance = data?.data?.balance || "0.00";   
 
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(
         address || "0x0000000000000000000000000000000000000000"
       );
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
     } catch (err) {
       console.error("Failed to copy:", err);
     }
   };
 
   return (
-    <Card className="w-full md:w-1/3 p-6 shadow-lg rounded-2xl bg-white dark:bg-gray-900">
+    <div className="w-full md:w-1/3 p-6 rounded-2xl bg-[#F3F8FF] flex justify-center items-center ">
       <div className="flex flex-col items-center text-center">
-        <Avatar className="w-24 h-24 border-4 border-primary">
-          <AvatarImage src="/avatar.jpg" alt="User Avatar" />
+        <Avatar className="w-24 h-24 lg:w-32 lg:h-32">
+          <AvatarImage src={image || ProfilePic} alt="User Avatar" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
 
-        <h2 className="text-xl font-semibold mt-4 text-gray-800 dark:text-white">
+        <h2 className="text-2xl lg:text-3xl font-bold mt-4 text-black truncate">
           John Doe
         </h2>
 
-        <div className="flex items-center gap-2 mt-2 text-gray-600 dark:text-gray-400">
+        <div className="flex items-center gap-2 mt-2 text-black dark:text-gray-400">
           <span className="text-sm">{addressMasked}</span>
-          <Clipboard
+          <img src={Copy} alt="copy" 
+          className="w-4 h-4 cursor-pointer text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition" 
+          onClick={() => {
+              copyToClipboard();
+              toast.success(`Address copied to clipboard: ${addressMasked}`, {
+                duration: 2000,
+                style: {
+                  background: "#008ECC",
+                  color: "#fff",
+                },
+              });
+            }}
+          />
+          {/* <Clipboard
             size={18}
             className="cursor-pointer text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition"
-            onClick={copyToClipboard}
-          />
+            onClick={() => {
+              copyToClipboard();
+              toast.success(`Address copied to clipboard: ${addressMasked}`, {
+                duration: 2000,
+                style: {
+                  background: "#008ECC",
+                  color: "#fff",
+                },
+              });
+            }}
+          /> */}
         </div>
 
-        <div className="mt-4 text-lg font-medium text-gray-700 dark:text-gray-200">
-          <span className="text-gray-500 dark:text-gray-400">Balance:</span>
-          <span className="ml-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-lg text-lg">
-            {balance} XION
-          </span>
-        </div>
-
-        <div className="mt-6 flex gap-4">
+        {/* <div className="mt-6 flex gap-4">
           <Button variant="outline" className="w-36">
             View Profile
           </Button>
           <Button className="w-36">Edit Profile</Button>
-        </div>
+        </div> */}
 
-        {copied && (
-          <div className="mt-2 text-sm text-green-500 font-medium">
-            Copied to clipboard!
-          </div>
-        )}
       </div>
-    </Card>
+    </div>
   );
 };
 
