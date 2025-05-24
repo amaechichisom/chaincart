@@ -1,7 +1,7 @@
-import { Clipboard } from "lucide-react";
+// import { Clipboard } from "lucide-react";
 // import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Card } from "../ui/card";
+// import { Card } from "../ui/card";
 import { RootState, useAppSelector } from "@/store";
 import { maskAddress } from "@/utils/maskAddress";
 // import { useGetXionBalanceQuery } from "@/api/xionService";
