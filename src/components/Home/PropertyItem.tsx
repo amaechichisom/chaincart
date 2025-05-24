@@ -1,7 +1,17 @@
-import { ApartmentOne } from '@/assets'
+import { Link } from "react-router-dom";
+import { ApartmentOne } from '@/assets';
 
-function PropertyItem({ src, title, price, discountPrice, discountPercentage}: {src?: string, title?: string, price?: number, discountPrice?: number, discountPercentage?: number}) {
-   return (
+interface PropertyItemProps {
+  src?: string;
+  title?: string;
+  price?: number;
+  discountPrice?: number;
+  discountPercentage?: number;
+  id?: string; 
+}
+
+function PropertyItem({ id, src, title, price, discountPrice, discountPercentage }: PropertyItemProps) {
+  const content = (
     <div className="flex flex-col items-start justify-center gap-2 bg-white shadow-md rounded-lg p-1 pb-3 w-full max-w-xs sm:max-w-[200px] md:max-w-56 max-h-64 h-auto mx-auto lg:mx-0">
       <div className="relative w-full h-32 sm:h-36 md:h-40">
         <img
@@ -30,7 +40,15 @@ function PropertyItem({ src, title, price, discountPrice, discountPercentage}: {
         )}
       </div>
     </div>
-  )
+  );
+
+  return id ? (
+    <Link to={`${id}`}>
+      {content}
+    </Link>
+  ) : (
+    content
+  );
 }
 
-export default PropertyItem
+export default PropertyItem;

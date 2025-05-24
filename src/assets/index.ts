@@ -51,3 +51,10 @@ export {default as LandingPageTwo} from './landing-page-2.png'
 export {default as LandingPageThree} from './landing-page-3.png'
 export {default as BuyProperty} from './buy-property.png'
 export {default as SellProperty} from './sell-property.png'
+//?
+export {default as propertOne} from './propertOne.svg'
+export {default as PropertThree} from './PropertThree.svg'
+export {default as PropertyFour} from './PropertyFour.svg'
+export {default as ProprtyTwo} from './ProprtyTwo.svg'
+
+

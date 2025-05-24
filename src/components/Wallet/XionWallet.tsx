@@ -120,6 +120,7 @@ const XionWallet = () => {
             : "Sign In"
         }
         onClick={handleConnect}
+        
       />
       <Abstraxion 
         onClose={() => setShow(false)} 
