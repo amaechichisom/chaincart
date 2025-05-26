@@ -1,65 +1,102 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { GridIcon, ListIcon, PlusIcon } from "@/assets";
-import GridDisplay from "@/components/Seller/Listing/GridDisplay";
-import ListDisplay from "@/components/Seller/Listing/ListDisplay";
+import React, { useState } from 'react';
+import { Plus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import EmptyCard from '@/components/Seller/Listing/EmptyCard';
+import ListCard from '@/components/Seller/Listing/ListCard';
+import { ApartmentOne, ApartmentTwo} from '@/assets';
+import { emptyStates } from '@/CONSTANT/data';
 
-function Listing() {
-  const [view, setView] = useState<"grid" | "list">("grid");
-  const [activeTab, setActiveTab] = useState<"active" | "expired" | "unpublished">("active");
-  const navigate = useNavigate();
+type TabType = 'active' | 'paused' | 'under review' | 'sold' | 'bought';
+const filterTabs:TabType[] = ['active', 'paused', 'under review', 'sold', 'bought'];
+
+const dummyData = {
+  active: [
+    {
+      id: 1,
+      title: '3 Acres In Lekki',
+      price: 120000,
+      discountPrice: 135000,
+      src: ApartmentOne,
+    },
+    {
+      id: 2,
+      title: '5 Hectares in Magodo',
+      price: 85000,
+      discountPrice: 95000,
+      src: ApartmentTwo,
+    },
+  ],
+  paused: [],
+  'under review': [],
+  sold: [],
+  bought: [],
+};
+
+export default function MainDashboard() {
+  const [selectedTab, setSelectedTab] = useState<TabType>('active');
+
+  const handleTabChange = (tab: TabType) => setSelectedTab(tab);
+
+  const data = dummyData[selectedTab] ?? [];
 
   return (
-    <section className="container mx-auto p-4">
-      <div className="flex items-center justify-between p-4 container mx-auto">
-        <h2 className="text-input text-2xl font-bold">Your Listings</h2>
-        <div className="flex items-center gap-4">
-          <img
-            src={GridIcon}
-            alt="grid icon"
-            className={`w-8 h-8 cursor-pointer ${view === "grid" ? "opacity-100" : "opacity-50 "}`}
-            onClick={() => setView("grid")}
-          />
-          <img
-            src={PlusIcon}
-            alt="plus icon"
-            className="w-8 h-8 cursor-pointer"
-            onClick={() => navigate("/create-property")}
-          />
-          <img
-            src={ListIcon}
-            alt="list icon"
-            className={`w-8 h-8 cursor-pointer ${view === "list" ? "opacity-100" : "opacity-50 "}`}
-            onClick={() => setView("list")}
-          />
-        </div>
+    <div className="container mx-auto py-6 space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-semibold">My Properties</h1>
+        <Button className="bg-primary text-white">
+          <Plus className="mr-2 h-4 w-4" />
+          Add New listing
+        </Button>
       </div>
 
-      <div>
-        <div className="flex items-center">
-          <p
-            className={`text-input p-4  cursor-pointer ${activeTab === "active" ? "font-bold bg-light-blue" : "bg-white"}`}
-            onClick={() => setActiveTab("active")}
-          >
-            Active <span className="p-1 px-2 bg-black text-white rounded">4</span>
-          </p>
-          <p
-            className={`text-input p-4  cursor-pointer ${activeTab === "expired" ? "font-bold bg-light-blue" : "bg-white"}`}
-            onClick={() => setActiveTab("expired")}
-          >
-            Expired <span className="p-1 px-2 bg-black text-white rounded">4</span>
-          </p>
-          <p
-            className={`text-input p-4  cursor-pointer ${activeTab === "unpublished" ? "font-bold bg-light-blue" : "bg-white"}`}
-            onClick={() => setActiveTab("unpublished")}
-          >
-            Unpublished <span className="p-1 px-2 bg-red-600 text-white rounded">4</span>
-          </p>
-        </div>
-        {view === "grid" ? <GridDisplay activeTab={activeTab} /> : <ListDisplay activeTab={activeTab} />}
+      {/* Filter Pills */}
+      <div className="flex flex-wrap items-center gap-2 text-sm font-medium mb-8">
+        {filterTabs.map((tab, i) => (
+          <React.Fragment key={tab}>
+            {tab === 'sold' && (
+              <span className="mx-1 text-neutral-400 select-none">|</span>
+            )}
+            <button
+              onClick={() => handleTabChange(tab)}
+              className={cn(
+                'px-3 py-1 rounded-full text-gray-500 transition ',
+                selectedTab === tab
+                  ? 'bg-primary/20 text-primary'
+                  : ' bg-neutral-100 hover:bg-neutral-200'
+              )}
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          </React.Fragment>
+        ))}
       </div>
-    </section>
+
+      {/* Content Area */}
+      {data.length === 0 ? (
+        <EmptyCard 
+          image={emptyStates[selectedTab].image}
+          title={emptyStates[selectedTab].title}
+          text={emptyStates[selectedTab].text}
+          buttonHref={emptyStates[selectedTab].buttonHref}
+          buttonText={emptyStates[selectedTab].buttonText}
+        />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {data.map((item:any) => (
+            <ListCard
+              key={item.id}
+              src={item.src}
+              title={item.title}
+              price={item.price}
+              discountPrice={item.discountPrice}
+            />
+          ))}
+        </div>
+      )}
+
+     
+    </div>
   );
 }
-
-export default Listing;

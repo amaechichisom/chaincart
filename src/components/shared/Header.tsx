@@ -8,6 +8,7 @@ import { headerMenu, profileHeaderMenu } from "@/CONSTANT/data";
 import Logo from "./Logo";
 import SearchBar from "../search/SearchBar";
 import XionWallet from "../Wallet/XionWallet";
+import AdminHeader from "./AdminHeader";
 
 interface IMobileMenu {
   isOpen: boolean;
@@ -108,7 +109,7 @@ const BottomHeader: React.FC = () => {
   return (
   <section className="p-3 px-4 flex items-center border-t border-gray-700 gap-6 container mx-auto">
     <div className="block lg:hidden">
-      <CategorySelector />
+      {!isSeller && <CategorySelector />}
     </div>
     <nav className={`hidden lg:flex mt-2 w-full mx-auto`}>
       <ul className={`flex gap-6 w-full ${isSeller ? "justify-center" : "justify-end"}`}>
@@ -139,13 +140,24 @@ const Header: React.FC = () => {
     }
   };
 
+  const location = useLocation();
+  const isSeller = location.pathname.includes("seller") || location.search.includes("seller");
+
   return (
     <header className="text-white">
       <div className="shadow-lg shadow-[#1018281A] bg-white">
-        <TopHeader isOpen={isOpen} closeMobile={closeMobile} />
-        <MobileMenu isOpen={isOpen} closeMobile={closeMobile} handleOutsideClick={handleOutsideClick} />
+        {
+          !isSeller ? (
+            <>
+              <TopHeader isOpen={isOpen} closeMobile={closeMobile} />
+              <MobileMenu isOpen={isOpen} closeMobile={closeMobile} handleOutsideClick={handleOutsideClick} />
+            </>
+          ) : (
+            <AdminHeader/>
+          )
+        }
       </div>
-      <BottomHeader />
+      {!isSeller && <BottomHeader />}
     </header>
   );
 };

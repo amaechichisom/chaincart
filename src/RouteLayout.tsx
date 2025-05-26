@@ -17,6 +17,7 @@ const Shop = lazy(() => import("./page/Shop"));
 const Cart = lazy(() => import("./page/Cart"));
 const Product = lazy(() => import("./page/Product"));
 const Seller = lazy(() => import("./page/Seller"));
+const SellerEdit = lazy(() => import("./components/Seller/SellerEditProfile"));
 const Buyer = lazy(() => import("./page/Buyer"));
 const AuthPage = lazy(() => import("./page/AuthPage"));
 const Listing = lazy(() => import("./page/Listing"));
@@ -52,6 +53,7 @@ const LazyWrapper = (Component: React.ComponentType) => (
         <Route element={<ProtectedRoutes allowedRoles={[Roles.SELLER]} />} path="seller">
           <Route index element={LazyWrapper(Seller)} />
           <Route path="listing" element={LazyWrapper(Listing)} />
+          <Route path="edit-profile" element={LazyWrapper(SellerEdit)} />
         </Route>
       </Route>
 

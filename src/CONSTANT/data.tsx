@@ -463,3 +463,48 @@ export const topSellers = [
     src: IMG.UpdcLogo,
   }
 ]
+
+type TabType = 'active' | 'paused' | 'under review' | 'sold' | 'bought';
+export const emptyStates: Record<TabType, { 
+  image: any; 
+  title: string; 
+  text: string; 
+  buttonText: string; 
+  buttonHref: string; 
+}> = {
+  active: {
+    image: IMG.Rafiki,
+    title: "You haven’t listed any properties yet",
+    text: "Start showcasing your lands, buildings, or apartments and reach buyers across Nigeria.",
+    buttonText: "List a Property",
+    buttonHref: "/create-property",
+  },
+  paused: {
+    image: IMG.ForSale,
+    title: "No paused listings here",
+    text: "You can temporarily pause listings that are under review or unavailable.",
+    buttonText: "View Active Listings",
+    buttonHref: "/create-property",
+  },
+  'under review': {
+    image: IMG.HomeSearching,
+    title: "No listings are currently under review",
+    text: "When you submit a property, our team will verify ownership, documents, and physical location before approval.",
+    buttonText: "Submit a Property",
+    buttonHref: "/create-property",
+  },
+  sold: {
+    image: IMG.Cuate,
+    title: "You haven’t sold any properties yet",
+    text: "When a buyer completes a purchase, your listings will appear here.",
+    buttonText: "List a Property",
+    buttonHref: "/create-property",
+  },
+  bought: {
+    image: IMG.Bought,
+    title: "You haven’t bought any properties yet",
+    text: "Your future homes or investments will show up here after a successful purchase.",
+    buttonText: "Browse Properties",
+    buttonHref: "/properties",
+  },
+};
