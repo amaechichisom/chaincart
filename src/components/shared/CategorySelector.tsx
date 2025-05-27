@@ -30,9 +30,6 @@ const CategorySelector: React.FC = () => {
       )}
       </div>
 
-      
-
-      {/* Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

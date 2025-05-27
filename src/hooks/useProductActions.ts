@@ -28,8 +28,9 @@ export const useProductActions = (_id: string) => {
   const handleAddToCart = useCallback(async () => {
     try {
       const response: IApiResponse = await addToCart({ quantity, productId: _id }).unwrap();
-      dispatch(addToCartReducer({ _id }));  // Use renamed reducer function
+      dispatch(addToCartReducer({ _id }));  
       toast.success(response.message || "Added to cart successfully!");
+      
     } catch (error: unknown) {
       console.error("Error adding to cart:", error);
       toast.error("Failed to add to cart.");

@@ -9,6 +9,9 @@ interface RoleProtectedRouteProps {
 function ProtectedRoutes({ allowedRoles }: RoleProtectedRouteProps) {
   const { isAuthenticated, user } = useAppSelector((state: RootState) => state.auth);
 
+  console.log('User roles: ProtectedRoutes inuer', user);
+  console.log('User roles: ProtectedRoutes', user?.roles);
+console.log('Allowed roles:', allowedRoles)
   if (!isAuthenticated) {
     return <Navigate to="/" />;
   }

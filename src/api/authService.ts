@@ -9,8 +9,6 @@ export const authService = baseDomain.injectEndpoints({
         method: 'POST',
         body: { walletAddress },
       }),
-      // providesTags: [],
-    //   invalidatesTags : [],
     }),
     authRegister: build.mutation({
       query: ({ email,password }: { email: string;password:string }) => ({
@@ -18,8 +16,6 @@ export const authService = baseDomain.injectEndpoints({
         method: 'POST',
         body: { email,password },
       }),
-      // providesTags: [],
-    //   invalidatesTags : [],
     }),
     authLogin: build.mutation({
       query: ({ email,password }: { email: string;password:string }) => ({
@@ -27,9 +23,14 @@ export const authService = baseDomain.injectEndpoints({
         method: 'POST',
         body: { email,password },
       }),
-      // providesTags: [],
-    //   invalidatesTags : [],
     }),
+    authUpdate :build.mutation({
+      query:({email, phoneNumber, name})=>({
+        url:'/profile',
+        method:'PATCH',
+        body:{email,phoneNumber,name}
+      })
+    })
     
     
   }),
@@ -37,4 +38,4 @@ export const authService = baseDomain.injectEndpoints({
   overrideExisting: false,
 });
 
-export const {useWalletAuthMutation,useAuthRegisterMutation,useAuthLoginMutation } = authService;
+export const {useWalletAuthMutation,useAuthRegisterMutation,useAuthLoginMutation,useAuthUpdateMutation } = authService;

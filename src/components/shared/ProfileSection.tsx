@@ -8,6 +8,7 @@ import { maskAddress } from "@/utils/maskAddress";
 // import {  useState } from "react";
 import { toast } from "sonner";
 import { Copy, ProfilePic } from "@/assets";
+import { copyToClipboard } from "@/utils/CopyToClipBoard";
 // import useMeta from "@/hooks/useMeta";
 
 const ProfileSection = ({image}: {image?: string}) => {
@@ -23,15 +24,7 @@ const ProfileSection = ({image}: {image?: string}) => {
   // const { data } = useGetXionBalanceQuery(address, { skip: !address });
   // const balance = data?.data?.balance || "0.00";   
 
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(
-        address || "0x0000000000000000000000000000000000000000"
-      );
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
-  };
+
 
   return (
     <div className="w-full md:w-1/3 p-6 rounded-2xl bg-[#F3F8FF] flex justify-center items-center ">
@@ -50,7 +43,7 @@ const ProfileSection = ({image}: {image?: string}) => {
           <img src={Copy} alt="copy" 
           className="w-4 h-4 cursor-pointer text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition" 
           onClick={() => {
-              copyToClipboard();
+              copyToClipboard(address);
               toast.success(`Address copied to clipboard: ${addressMasked}`, {
                 duration: 2000,
                 style: {

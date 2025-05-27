@@ -1,11 +1,11 @@
 
 class AuthStore {
-    static getAccessToken():string| null {
-      return localStorage.getItem('auth');
+    static getAccessToken(key:string='auth'):string| null {
+      return localStorage.getItem(key);
     }
   
-    static setAccessToken(token: string) {
-      localStorage.setItem('auth', token);
+    static setAccessToken(token: string,key:string='auth') {
+      localStorage.setItem(key, token);
     }
   
     static removeAccessToken(): void {
