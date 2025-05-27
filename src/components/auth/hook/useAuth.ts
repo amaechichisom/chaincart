@@ -2,7 +2,6 @@ import {
   AuthResponse,
   IApiResponse,
   IMessage,
-  IUserResponse,
   Roles,
 } from "@/@types/types";
 import {
