@@ -8,7 +8,7 @@ interface User {
 //   email: string;
   walletAddress: string;
   roles: Roles[];
-  isVerified: boolean,
+  isVerified?: boolean,
 }
 
 interface IAuth {

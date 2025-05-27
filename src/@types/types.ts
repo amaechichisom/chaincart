@@ -39,7 +39,7 @@ export interface CategoryCardProps {
     walletAddress: string ;
     _id: string;
     username: string;
-    isVerified: boolean;
+    isVerified?: boolean;
   };
 }
 
@@ -58,7 +58,7 @@ export interface IUserDetails {
   profile: Profile;
   walletAddress: string;
   _id: string;
-  isVerified: boolean;
+  isVerified?: boolean;
 }
 
 interface Profile {

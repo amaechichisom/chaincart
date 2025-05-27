@@ -11,6 +11,7 @@ import PageSelection from '@/components/shared/PageSelection';
 function App() {
     const { isLoading, data, error } = useAllProductQuery({});
     console.log({data})
+    console.log({error})
     if(isLoading){
       return <Loading/>
     }

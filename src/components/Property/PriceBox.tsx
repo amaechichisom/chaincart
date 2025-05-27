@@ -25,7 +25,7 @@ import { initEscrow } from "@/utils/escrowService";
 import { confirmOrder } from "@/utils/orderConfirm";
 
 export type IPriceBox = {
-  price: number;
+  price?: number;
   id?: string;
   isSpecialOffer?: boolean;
 };
@@ -37,14 +37,14 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
   const { isAuthenticated, user } = useAppSelector(
     (state: RootState) => state.auth
   );
-  const [orderConfirm, { isLoading: orderConfirmLoad }] =
+  const [orderConfirm] =
     useOrderPaymentConfirmMutation();
-  const [orderAvailable, { isLoading: orderLoad }] =
+  const [orderAvailable] =
     useOrderAvailableMutation();
   const { connect } = useRequireWallet();
   const toast = useToast();
   const [updateUser, { isLoading }] = useAuthUpdateMutation();
-  const [addToCart, { isLoading: LoadAddTooCart }] = useAddToCartMutation();
+  const [addToCart] = useAddToCartMutation();
 
   const [userDetails, setUserDetails] = useState({
     fullName: "",
@@ -250,7 +250,7 @@ export function SpecialPrice({ price, isSpecialOffer = false }: IPriceBox) {
   return (
     <section>
       <h2 className="text-xl font-semibold text-neutral-900 mb-4">
-        ${price.toLocaleString()}
+        ${price?.toLocaleString() || 0}
       </h2>
 
       {isSpecialOffer && (

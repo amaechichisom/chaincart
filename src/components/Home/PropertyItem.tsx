@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { ApartmentOne } from '@/assets';
 import { ILandListing } from "@/@types/types";
 
-interface PropertyItemProps {
-  src?: string;
-  title?: string;
-  price?: number;
-  discountPrice?: number;
-  discountPercentage?: number;
-  id?: string; 
-}
+// interface PropertyItemProps {
+//   src?: string;
+//   title?: string;
+//   price?: number;
+//   discountPrice?: number;
+//   discountPercentage?: number;
+//   id?: string; 
+// }
 
 function PropertyItem({ _id,coverImage,percentage,title,price,specialOfferPrice}: ILandListing) {
   const content = (

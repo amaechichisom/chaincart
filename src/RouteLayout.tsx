@@ -17,11 +17,11 @@ import SellerSetting from "./components/Seller/SellerSetting";
 import ProtectedSellerRoutes from "./page/ProtectedSellerRoutes";
 
 const App = lazy(() => import("./App"));
-const Shop = lazy(() => import("./page/Shop"));
-const Cart = lazy(() => import("./page/Cart"));
-const Product = lazy(() => import("./page/Product"));
+// const Shop = lazy(() => import("./page/Shop"));
+// const Cart = lazy(() => import("./page/Cart"));
+// const Product = lazy(() => import("./page/Product"));
 const Seller = lazy(() => import("./page/Seller"));
-const Buyer = lazy(() => import("./page/Buyer"));
+// const Buyer = lazy(() => import("./page/Buyer"));
 const AuthPage = lazy(() => import("./page/AuthPage"));
 // const Listing = lazy(() => import("./page/Listing"));
 const ListingPage = lazy(() => import("./page/ListingPage"));

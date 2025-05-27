@@ -3,18 +3,27 @@ import { RootState, useAppSelector } from "@/store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { maskAddress } from "@/utils/maskAddress";
 import { ProfilePic, Copy } from "./../../assets";
-import { copyToClipboard } from "@/utils/CopyToClipBoard";
 import { toast } from "sonner";
 import AppButton from "../shared/AppButton";
 import { InputField } from "../shared/InputField";
 import { TextareaField } from "../shared/TextareaField";
-import { cn } from "@/lib/utils"; // For conditional classNames
+import { cn } from "@/lib/utils";
 
 export default function AboutSeller() {
   const [activeTab, setActiveTab] = useState<"profile" | "kyc">("profile");
   const [showEdit, setShowEdit] = useState(false);
   const { user } = useAppSelector((state: RootState) => state.auth);
   const address = user?.walletAddress;
+  const copyToClipboard = async (address?:string) => {
+    try {
+      await navigator.clipboard.writeText(
+        address || "0x0000000000000000000000000000000000000000"
+      );
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
   const addressMasked = maskAddress(
     address || "0x0000000000000000000000000000000000000000"
   );

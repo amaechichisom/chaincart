@@ -197,7 +197,7 @@ const onOtherImagesDrop = useCallback((acceptedFiles: File[]) => {
     },
     multiple: true,
     maxSize: 5 * 1024 * 1024,
-    onDropRejected: (fileRejections) => {
+    onDropRejected: () => {
       toast.error('Only 4 image is allow')
 },
     
