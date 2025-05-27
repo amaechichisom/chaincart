@@ -1,13 +1,14 @@
 import { useState, MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import CategorySelector from "./CategorySelector";
 import { headerMenu, profileHeaderMenu } from "@/CONSTANT/data";
 import Logo from "./Logo";
 import SearchBar from "../search/SearchBar";
 import XionWallet from "../Wallet/XionWallet";
+import AppButton from "./AppButton";
 
 interface IMobileMenu {
   isOpen: boolean;
@@ -19,6 +20,8 @@ const MobileMenu: React.FC<IMobileMenu> = ({ isOpen, closeMobile, handleOutsideC
   const location = useLocation();
   const isSeller = location.pathname.includes("seller") || location.search.includes("seller");  
   const menu = !isSeller ? headerMenu  : profileHeaderMenu;
+    const authRoute = location.pathname.includes('auth')
+  const navigate = useNavigate()
   return (
     <AnimatePresence>
       {isOpen && (
@@ -38,6 +41,7 @@ const MobileMenu: React.FC<IMobileMenu> = ({ isOpen, closeMobile, handleOutsideC
               <X className="w-6 h-6" />
             </button>
             {!isSeller && (<SearchBar />)}
+            { !authRoute && (
             <nav>
               <ul className="flex flex-col gap-4 text-lg ">
                 {menu.map((item, index) => (
@@ -55,7 +59,17 @@ const MobileMenu: React.FC<IMobileMenu> = ({ isOpen, closeMobile, handleOutsideC
                 ))}
               </ul>
             </nav>
-            <p className="font-medium text-white">Become a seller</p>
+
+            ) }
+            {
+              !isSeller && (
+
+                <AppButton label="Become a seller" onClick={()=>navigate('/auth')}/>
+              )
+            }
+            {/* <p className="font-medium text-white">
+              <Link to={'/auth'}>Become a seller</Link>
+            </p> */}
             <XionWallet />
           </div>
         </motion.div>
@@ -70,6 +84,8 @@ interface ITopHeader {
 }
 
 const TopHeader: React.FC<ITopHeader> = ({ isOpen, closeMobile }) => {
+    const navigate = useNavigate()
+
   return (
     <section className="p-3 px-4 flex items-center justify-between gap-2 lg:container lg:mx-auto">
       <div className="flex items-center gap-2">
@@ -93,7 +109,10 @@ const TopHeader: React.FC<ITopHeader> = ({ isOpen, closeMobile }) => {
           <SearchBar />
         </div>
         <div className="md:flex items-center gap-6 hidden">
-          <p className="font-medium text-input">Become a seller</p>
+          {/* <p className="font-medium text-input">
+                          <Link to={'/auth'}>Become a seller</Link>
+          </p> */}
+                      <AppButton label="Become a seller" onClick={()=>navigate('/auth')}/>
           <XionWallet />
         </div>
       </div>
@@ -103,13 +122,17 @@ const TopHeader: React.FC<ITopHeader> = ({ isOpen, closeMobile }) => {
 
 const BottomHeader: React.FC = () => {
   const location = useLocation();
+  const authRoute = location.pathname.includes('auth')
   const isSeller = location.pathname.includes("seller") || location.search.includes("seller");  
   const menu = !isSeller ? headerMenu  : profileHeaderMenu;
   return (
   <section className="p-3 px-4 flex items-center border-t border-gray-700 gap-6 container mx-auto">
+    
     <div className="block lg:hidden">
       <CategorySelector />
     </div>
+    {!authRoute && (
+      
     <nav className={`hidden lg:flex mt-2 w-full mx-auto`}>
       <ul className={`flex gap-6 w-full ${isSeller ? "justify-center" : "justify-end"}`}>
         {menu.map((item, index) => (
@@ -125,6 +148,7 @@ const BottomHeader: React.FC = () => {
         ))}
       </ul>
     </nav>
+    )}
   </section>
 )};
 

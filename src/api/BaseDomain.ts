@@ -6,7 +6,7 @@ import axios from 'axios';
 
 // export const baseUrl = `${BASE_URL}api`;
 export const baseUrl = `https://xion-commerce.onrender.com/api`;
-// export const baseUrl = 'http://localhost:5000/api';
+// export const baseUrl = 'http://localhost:8080/api';
 // export const baseUrl = 'http://13.247.245.19:5000/api';
 
 export const getAntiForgeryToken = async () => {

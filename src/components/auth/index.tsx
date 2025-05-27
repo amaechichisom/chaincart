@@ -13,7 +13,7 @@ export function Register() {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const { loginAuth, registerAuth,loginLoad,registerLoad } = useAuth();
+  const { loginAuth, registerAuth, loginLoad, registerLoad } = useAuth();
 
   const toggleForm = useCallback(() => setIsSignUp((prev) => !prev), []);
 
@@ -24,8 +24,10 @@ export function Register() {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      setErrors({});      const validation = isSignUp ? RegisterSchema.safeParse(formData)
-               : LoginSchema.safeParse(formData);
+      setErrors({});
+      const validation = isSignUp
+        ? RegisterSchema.safeParse(formData)
+        : LoginSchema.safeParse(formData);
       if (!validation.success) {
         const formattedErrors: { [key: string]: string } = {};
         validation.error.errors.forEach((err) => {
@@ -54,7 +56,9 @@ export function Register() {
     [formData, isSignUp, registerAuth, loginAuth]
   );
 
-  const formTitle = isSignUp ? "Create an Account" : "Login to Your Account";
+  const formTitle = isSignUp
+    ? "Create Account Seller"
+    : "Login to Your Account";
   const toggleText = isSignUp
     ? "Already have an account?"
     : "Don't have an account?";
@@ -111,12 +115,20 @@ export function Register() {
             />
           )}
 
-          <AppButton isLoading={loginLoad || registerLoad} label={isSignUp ? "Sign Up" : "Login"} buttonStyle="w-full" type="submit"/>
+          <AppButton
+            isLoading={loginLoad || registerLoad}
+            label={isSignUp ? "Sign Up" : "Login"}
+            buttonStyle="w-full"
+            type="submit"
+          />
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-4">
+        <p className="text-center text-sm text-gray-600 mt-4 ">
           {toggleText}
-          <button onClick={toggleForm} className="text-codeline-500 font-medium ml-1">
+          <button
+            onClick={toggleForm}
+            className="text-codeline-500 font-medium ml-1 border-0 focus:outline-none focus:ring-0"
+          >
             {isSignUp ? "Login" : "Sign Up"}
           </button>
         </p>

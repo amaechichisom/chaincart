@@ -7,8 +7,8 @@ import { Button } from "../ui/button";
 interface InputFieldProps {
   id: string;
   label?: string;
-  placeholder: string;
-  type?: "text" | "email" | "tel" | "password" | "number" | "file";
+  placeholder?: string;
+  type?: "text" | "email" | "tel" | "password" | "number" | "file"|'date'|'checkbox';
   required?: boolean;
   className?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;

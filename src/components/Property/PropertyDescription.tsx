@@ -1,6 +1,6 @@
 export default function PropertyDescription() {
   return (
-<div className="prose max-w-none text-sm text-neutral-700">
+<div className="prose max-w-none text-sm text-neutral-700 mt-10">
         <h4 className="text-lg font-semibold">Description</h4>
         <p>
           Located in the heart of Lekki’s vibrant and nature-rich corridor, this stylish

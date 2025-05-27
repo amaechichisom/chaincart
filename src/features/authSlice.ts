@@ -8,10 +8,12 @@ interface User {
 //   email: string;
   walletAddress: string;
   roles: Roles[];
+  isVerified: boolean,
 }
 
 interface IAuth {
   isAuthenticated: boolean;
+  // isVerified: boolean;
   user: User | null;
 }
 
@@ -43,6 +45,7 @@ export const authSlice = createSlice({
           walletAddress:'0x0000000000000000000000000000000000000000',
         //   email: "admin@example.com",
           roles: [Roles.ADMIN],
+          isVerified:false
         };
       } else {
         state.isAuthenticated = false;
@@ -50,6 +53,7 @@ export const authSlice = createSlice({
       }
     },
     setAuthenticated: (state, action: PayloadAction<SetAuthenticatedPayload>) => {
+      console.log("Payload received in setAuthenticated:", action.payload);
       const { isAuthenticated, user } = action.payload;
       state.isAuthenticated = isAuthenticated;
       state.user = user ?? null;

@@ -1,8 +1,11 @@
 import { ChevronRight } from 'lucide-react';
 import {Link} from 'react-router-dom';
 import PropertyItem from './PropertyItem';
+import { ILandListing } from '@/@types/types';
 
-function ListProperty({title, data, link}: {title?: string, data?: any, link?: string}) {
+type IListProperty = ILandListing[] | any
+
+function ListProperty({title, data, link}: {title?: string, data?: IListProperty, link?: string}) {
     return (
         <div className='container mx-auto'>
             <div className="flex items-center justify-between mb-6 ">
@@ -14,8 +17,8 @@ function ListProperty({title, data, link}: {title?: string, data?: any, link?: s
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {(data || [...Array(5)]).map((item:any, idx:number) => (
-                    <PropertyItem key={idx} {...item} />
+                {data.map((item:ILandListing, idx:number) => (
+                    <PropertyItem key={idx} {...item} _id={`/property/${item?._id}`}/>
                 ))}
             </div>
         </div>

@@ -98,10 +98,10 @@ export const profileHeaderMenu = [
         name: "Settings",
         href: "/seller/settings",
     },
-    {
-        name: "Logout",
-        href: "/logout",
-    }
+    // {
+    //     name: "Logout",
+    //     href: "/logout",
+    // }
 ]
 
 export const categoryCardData:CategoryCardProps[] =[
@@ -370,6 +370,7 @@ export const shopProptiesData = [
 
 export const landData = [
   { 
+    _id:1,
     src: IMG.ApartmentOne, 
     title: "3 Acres In Lekki", 
     price: 37000, 
@@ -377,6 +378,7 @@ export const landData = [
     discountPercentage: Math.round(((37000 - 29600) / 37000) * 100)
   },
   { 
+        _id:2,
     src: IMG.ApartmentTwo, 
     title: "5 Hectares in Magodo", 
     price: 40000, 
@@ -384,16 +386,19 @@ export const landData = [
     discountPercentage: Math.round(((40000 - 32000) / 40000) * 100)
   },
   { 
+        _id:3,
     src: IMG.ApartmentThree, 
     title: "Farmland in Lagos", 
     price: 25000 
   },
   { 
+        _id:4,
     src: IMG.ApartmentFour, 
     title: "5 Plots in Ibadan", 
     price: 34000 
   },
   { 
+        _id:5,
     src: IMG.ApartmentOne, 
     title: "25 Acres in Ilishan", 
     price: 28000, 
