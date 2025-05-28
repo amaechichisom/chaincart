@@ -41,6 +41,7 @@ export interface CategoryCardProps {
     username: string;
     isVerified: boolean;
     kycStatus?:string
+    phoneNumber?:string
   };
 }
 

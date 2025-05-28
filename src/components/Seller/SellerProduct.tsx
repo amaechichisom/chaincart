@@ -1,5 +1,4 @@
 import { useSingleProductQuery } from "@/api/prodService";
-import { SpecialPrice } from "../Property/PriceBox";
 import PropertyDescription from "../Property/PropertyDescription";
 import PropertyInfo from "../Property/PropertyInfo";
 import ImageCollage from "../shared/ImageCollage";
@@ -7,6 +6,7 @@ import { ILandListing } from "@/@types/types";
 import { useParams } from "react-router-dom";
 import React from "react";
 import Loading from "../shared/Loading";
+import { SpecialPrice } from "../Property/SpecialPrice";
 
 export default function SellerProduct() {
   const { id } = useParams<{ id: string }>();

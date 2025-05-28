@@ -36,9 +36,15 @@ export const authService = baseDomain.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: [{ type: "User" }], 
     }),
     authProfile: build.query({
       query: (id: string) => `/user/${id}`,
+    }),
+    authCheckOut: build.query({
+      query: (walletAddress:string) => `/check_out/${walletAddress}`,
+      //       query: (id) => `/product/${id}`,
+      // providesTags: (_, __, id) => [{ type: "Product", id }],
     }),
   }),
 
@@ -51,5 +57,5 @@ export const {
   useAuthLoginMutation,
   useAuthUpdateMutation,
   useAuthProfileQuery,
-  useAuthKycUploadMutation
+  useAuthKycUploadMutation,useAuthCheckOutQuery
 } = authService;

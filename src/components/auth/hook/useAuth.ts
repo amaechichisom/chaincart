@@ -1,9 +1,4 @@
-import {
-  AuthResponse,
-  IApiResponse,
-  IMessage,
-  Roles,
-} from "@/@types/types";
+import { AuthResponse, IApiResponse, IMessage, Roles } from "@/@types/types";
 import {
   useAuthLoginMutation,
   useAuthRegisterMutation,
@@ -23,15 +18,15 @@ export default function useAuth() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user } = useAppSelector((state: RootState) => state.auth);
-  const {isConnected,connect,} = useRequireWallet()
+  const { isConnected, connect } = useRequireWallet();
 
   const registerAuth = useCallback(
     async (email: string, password: string) => {
-     if (!isConnected) {
-  connect(); 
-  toast.info("Please connect your wallet to continue.");
-  return;
-}
+      if (!isConnected) {
+        connect();
+        toast.info("Please connect your wallet to continue.");
+        return;
+      }
 
       toast.dismiss();
       const loadingToast = toast.loading("Registering...");
@@ -84,11 +79,11 @@ export default function useAuth() {
 
   const loginAuth = useCallback(
     async (email: string, password: string) => {
-     if (!isConnected) {
-  connect(); 
-  toast.info("Please connect your wallet to continue.");
-  return;
-}
+      if (!isConnected) {
+        connect();
+        toast.info("Please connect your wallet to continue.");
+        return;
+      }
 
       toast.dismiss();
       const loadingToast = toast.loading("Logging in...");
@@ -139,9 +134,9 @@ export default function useAuth() {
   const handleLogout = useCallback(() => {
     if (window.confirm("Are you sure you want to log out?")) {
       AuthStore.removeAccessToken();
-       localStorage.removeItem('persist:root');
-  persistor.pause();
-  window.location.reload();
+      localStorage.removeItem("persist:root");
+      persistor.pause();
+      window.location.reload();
       dispatch(setAuthenticated({ isAuthenticated: false, user: null }));
       toast.success("Log out successful.");
       navigate("/", { replace: true });

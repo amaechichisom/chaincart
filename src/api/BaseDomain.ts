@@ -5,8 +5,8 @@ import axios from 'axios';
 // const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 // export const baseUrl = `${BASE_URL}api`;
-export const baseUrl = `https://xion-commerce.onrender.com/api`;
-// export const baseUrl = 'http://localhost:8080/api';
+// export const baseUrl = `https://xion-commerce.onrender.com/api`;
+export const baseUrl = 'http://localhost:8080/api';
 // export const baseUrl = 'http://13.247.245.19:5000/api';
 
 export const getAntiForgeryToken = async () => {
@@ -26,7 +26,7 @@ export const baseDomain = createApi({
   reducerPath: 'baseDomainApi',
   refetchOnMountOrArgChange: 5,  
   keepUnusedDataFor: 5,          
-  tagTypes: ["Product",'Cart','Order'],
+  tagTypes: ["Product",'Cart','Order','User'],
   baseQuery: fetchBaseQuery({
     baseUrl,  
     // baseUrl: '/api',           
