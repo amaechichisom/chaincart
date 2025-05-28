@@ -40,6 +40,7 @@ export interface CategoryCardProps {
     _id: string;
     username: string;
     isVerified: boolean;
+    kycStatus?:string
   };
 }
 

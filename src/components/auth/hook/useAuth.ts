@@ -2,7 +2,7 @@ import {
   AuthResponse,
   IApiResponse,
   IMessage,
-  IUserResponse,
+
   Roles,
 } from "@/@types/types";
 import {
@@ -10,8 +10,9 @@ import {
   useAuthRegisterMutation,
 } from "@/api/authService";
 import { setAuthenticated } from "@/features/authSlice";
+import { useRequireWallet } from "@/hooks/useRequireWallet";
 import { useToast } from "@/hooks/useToast";
-import { useAppDispatch } from "@/store";
+import { persistor, RootState, useAppDispatch, useAppSelector } from "@/store";
 import AuthStore from "@/utils/AuthStore";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,18 +23,32 @@ export default function useAuth() {
   const toast = useToast();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { user } = useAppSelector((state: RootState) => state.auth);
+  const {isConnected,isAuthenticated,connect,} = useRequireWallet()
 
   const registerAuth = useCallback(
     async (email: string, password: string) => {
+      if (!isConnected || !isAuthenticated) {
+      connect();
+      toast.info("Please connect your wallet to continue.");
+      return; 
+    }
       toast.dismiss();
       const loadingToast = toast.loading("Registering...");
 
       try {
-        const response: IApiResponse = await register({ email, password }).unwrap();
+        const response: IApiResponse = await register({
+          email,
+          password,
+        }).unwrap();
         toast.dismiss(loadingToast);
 
         if (response.status === 201) {
           const successResponse = response.data as AuthResponse;
+          const walletAddress = !successResponse.user.walletAddress?.trim()
+            ? user?.walletAddress
+            : successResponse.user.walletAddress;
+
           dispatch(
             setAuthenticated({
               isAuthenticated: true,
@@ -42,7 +57,8 @@ export default function useAuth() {
                 roles: successResponse.user.role.map(
                   (role) => role.toLowerCase() as Roles
                 ),
-                walletAddress: successResponse.user.walletAddress ?? "",
+                walletAddress: walletAddress!,
+                // walletAddress: successResponse.user.walletAddress ?? user?.walletAddress ?? '',
                 isVerified: successResponse.user.isVerified,
               },
             })
@@ -68,16 +84,26 @@ export default function useAuth() {
 
   const loginAuth = useCallback(
     async (email: string, password: string) => {
+      if (!isConnected || !isAuthenticated) {
+      connect();
+      toast.info("Please connect your wallet to continue.");
+      return; 
+    }
       toast.dismiss();
       const loadingToast = toast.loading("Logging in...");
 
       try {
-        const response: IApiResponse = await login({ email, password }).unwrap();
+        const response: IApiResponse = await login({
+          email,
+          password,
+        }).unwrap();
         toast.dismiss(loadingToast);
 
         if (response.status === 200) {
           const successResponse = response.data as AuthResponse;
-
+          const walletAddress = !successResponse.user.walletAddress?.trim()
+            ? user?.walletAddress
+            : successResponse.user.walletAddress;
           dispatch(
             setAuthenticated({
               isAuthenticated: true,
@@ -86,7 +112,8 @@ export default function useAuth() {
                 roles: successResponse.user.role.map(
                   (role) => role.toLowerCase() as Roles
                 ),
-                walletAddress: successResponse.user.walletAddress ?? "",
+                walletAddress: walletAddress!,
+                // walletAddress: successResponse.user.walletAddress ?? user?.walletAddress ?? '',
                 isVerified: successResponse.user.isVerified,
               },
             })
@@ -111,6 +138,9 @@ export default function useAuth() {
   const handleLogout = useCallback(() => {
     if (window.confirm("Are you sure you want to log out?")) {
       AuthStore.removeAccessToken();
+       localStorage.removeItem('persist:root');
+  persistor.pause();
+  window.location.reload();
       dispatch(setAuthenticated({ isAuthenticated: false, user: null }));
       toast.success("Log out successful.");
       navigate("/", { replace: true });

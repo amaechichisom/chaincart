@@ -131,6 +131,27 @@ const PropertyListing: React.FC = () => {
       });
 
       const result: IApiResponse = await createProduct(formDataToSend).unwrap();
+      if (result.status == 201) {
+        setFormData({
+          title: "",
+          description: "",
+          category: "",
+          price: "",
+          stock: "",
+          // location: "",
+          address: "",
+          beds: "",
+          baths: "",
+          size_of_land: "",
+          coverImage: null,
+          image_of_land: [],
+          document_of_land: [],
+          isSpecialOffer: false,
+          specialOfferPrice: "",
+          offerStartDate: undefined,
+          offerEndDate: undefined,
+        });
+      }
 
       toast.dismiss(loadingToast);
       toast.success(result.message || "Ad successfully posted!");
@@ -171,20 +192,22 @@ const PropertyListing: React.FC = () => {
     maxSize: 5 * 1024 * 1024,
   });
 
-const onOtherImagesDrop = useCallback((acceptedFiles: File[]) => {
-  setFormData((prev) => {
-    const totalFiles = prev.image_of_land.length + acceptedFiles.length;
-    if (totalFiles > 4) {
-      toast.error("You can only upload a maximum of 4 images.");
-      return prev;
-    }
-    return {
-      ...prev,
-      image_of_land: [...prev.image_of_land, ...acceptedFiles],
-    };
-  });
-}, [toast]);
-
+  const onOtherImagesDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      setFormData((prev) => {
+        const totalFiles = prev.image_of_land.length + acceptedFiles.length;
+        if (totalFiles > 4) {
+          toast.error("You can only upload a maximum of 4 images.");
+          return prev;
+        }
+        return {
+          ...prev,
+          image_of_land: [...prev.image_of_land, ...acceptedFiles],
+        };
+      });
+    },
+    [toast]
+  );
 
   const {
     getRootProps: getOtherRootProps,
@@ -198,9 +221,8 @@ const onOtherImagesDrop = useCallback((acceptedFiles: File[]) => {
     multiple: true,
     maxSize: 5 * 1024 * 1024,
     onDropRejected: (fileRejections) => {
-      toast.error('Only 4 image is allow')
-},
-    
+      toast.error("Only 4 image is allow");
+    },
   });
 
   const onDocumentsDrop = useCallback((acceptedFiles: File[]) => {
@@ -562,15 +584,17 @@ const onOtherImagesDrop = useCallback((acceptedFiles: File[]) => {
                   : "Upload files"}
               </p>
               <p className="text-blue-500">or drag and drop</p>
-              <p className="text-gray-500 text-sm mt-1">
-                PDF upto 5MB each
-              </p>
+              <p className="text-gray-500 text-sm mt-1">PDF upto 5MB each</p>
             </div>
           </div>
         </div>
 
         <div className="flex justify-end">
-          <AppButton label="            Submit Listing" isLoading={isLoading} type="submit" />
+          <AppButton
+            label="            Submit Listing"
+            isLoading={isLoading}
+            type="submit"
+          />
         </div>
       </form>
     </div>

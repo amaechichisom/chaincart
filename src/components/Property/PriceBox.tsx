@@ -13,16 +13,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RootState, useAppSelector } from "@/store";
 import { useRequireWallet } from "@/hooks/useRequireWallet";
-import { useAuthUpdateMutation } from "@/api/authService";
 import { IApiResponse, IAvailableOrder } from "@/@types/types";
 import { useToast } from "@/hooks/useToast";
-import { useAddToCartMutation } from "@/api/cartService";
 import {
   useOrderAvailableMutation,
   useOrderPaymentConfirmMutation,
 } from "@/api/orderService";
-import { initEscrow } from "@/utils/escrowService";
-import { confirmOrder } from "@/utils/orderConfirm";
+import useMeta from "@/hooks/useMeta";
+import { useNavigate } from "react-router-dom";
 
 export type IPriceBox = {
   price: number;
@@ -34,17 +32,19 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
   const [showForm, setShowForm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAgreementChecked, setIsAgreementChecked] = useState(false);
+  const [saveDetailsToProfile, setSaveDetailsToProfile] = useState(false);
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useAppSelector(
     (state: RootState) => state.auth
   );
-  const [orderConfirm, { isLoading: orderConfirmLoad }] =
-    useOrderPaymentConfirmMutation();
+  const { initEscrow } = useMeta();
+
   const [orderAvailable, { isLoading: orderLoad }] =
     useOrderAvailableMutation();
   const { connect } = useRequireWallet();
   const toast = useToast();
-  const [updateUser, { isLoading }] = useAuthUpdateMutation();
-  const [addToCart, { isLoading: LoadAddTooCart }] = useAddToCartMutation();
+  const [confirmOrder, { isLoading: loadConfirm }] =
+    useOrderPaymentConfirmMutation();
 
   const [userDetails, setUserDetails] = useState({
     fullName: "",
@@ -67,67 +67,63 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
   async function confirmAgreement() {
     if (!isAgreementChecked) return;
 
-    const loadingToast = toast.loading("Updating user information");
+    const loadingToast = toast.loading("Processing your payment...");
     setIsModalOpen(false);
 
     try {
-      const result: IApiResponse = await updateUser(userDetails).unwrap();
+      const response: IApiResponse = await orderAvailable({
+        productId: id!,
+        quantity: 1,
+      }).unwrap();
       toast.dismiss(loadingToast);
-      toast.success(result.message || "Update successfully");
-      if (result.status == 200) {
-        const response: IApiResponse = await addToCart({
-          quantity: 1,
-          productId: id!,
-        }).unwrap();
-        if (response.status == 200) {
-          toast.success(response.message || "Added to cart successfully!");
-          const responseAvailable: IApiResponse = await orderAvailable({
+      if (response.status === 200) {
+        toast.success(
+          response.message || "Order confirmed. Proceeding with payment..."
+        );
+        const available = response.data as IAvailableOrder;
+        const { totalAmount, sellerAddress } = available;
+        const confirmTransaction = window.confirm(
+          `You are about to send ${totalAmount} Xion to the escrow. Do you want to proceed?`
+        );
+        if (!confirmTransaction) {
+          toast.info("Transaction was cancelled.");
+
+          return;
+        }
+
+        const escrowResult = await initEscrow(
+          user!.walletAddress,
+          totalAmount.toString(),
+          sellerAddress
+        );
+
+        if (escrowResult && escrowResult.transactionHash) {
+          const response: IApiResponse = await confirmOrder({
             productId: id!,
             quantity: 1,
+            transactionHash: escrowResult.transactionHash,
+            email,
+            fullName,
+            phoneNumber,
+            saveDetailsToProfile,
           }).unwrap();
-          if (responseAvailable.status === 200) {
-            toast.success(
-              responseAvailable.message ||
-                "Order available. Proceeding with payment..."
-            );
-            const available = responseAvailable.data as IAvailableOrder;
-            const { totalAmount, sellerAddress } = available;
-            const confirmTransaction = window.confirm(
-              `You are about to send ${totalAmount} Xion to the escrow. Do you want to proceed?`
-            );
-            if (!confirmTransaction) {
-              toast.info("Transaction cancelled.");
+          const msg = `You will be notified via the provided email.`;
+          toast.success(
+            `${response.message} ${msg} ` ||
+              `Payment successful! Order confirmed. ${msg}`
+          );
 
-              return;
-            }
-
-            const escrowResult = await initEscrow(
-              user!.walletAddress,
-              totalAmount.toString(),
-              sellerAddress
-            );
-
-            if (escrowResult && escrowResult.transactionHash) {
-              await confirmOrder(
-                orderConfirm,
-                id!,
-                1,
-                escrowResult.transactionHash
-              );
-              toast.success("Payment successful! Order confirmed.");
-            } else {
-              console.error(
-                "Escrow transaction failed. Order confirmation skipped."
-              );
-              toast.error("Payment failed. Please try again.");
-            }
-          } else {
-            console.log("Order availability response:", response);
-            toast.error(response.message || "Order unavailable.");
-          }
+          navigate("/");
+        } else {
+          console.error(
+            "Escrow transaction failed. Order confirmation skipped."
+          );
+          toast.error("Payment failed. Please try again.");
         }
+      } else {
+        console.log("Order availability response:", response);
+        toast.error(response.message || "Order unavailable.");
       }
-      console.log({ result });
     } catch (error) {
       toast.dismiss(loadingToast);
       console.error("Error submitting form:", error);
@@ -153,7 +149,7 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
         }
       />
 
-      {showForm && (
+      {showForm && isAuthenticated && (
         <div className="mt-4 space-y-3">
           <form onSubmit={handleSubmit}>
             <InputField
@@ -182,11 +178,22 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
               value={fullName}
               onChange={handleChange}
             />
+            <div className="flex items-center space-x-2 mt-2">
+              <Checkbox
+                id="saveDetailsToProfile"
+                checked={saveDetailsToProfile}
+                onCheckedChange={(val) => setSaveDetailsToProfile(Boolean(val))}
+              />
+              <Label htmlFor="saveDetailsToProfile">
+                Save these details to my profile for future purchases
+              </Label>
+            </div>
+
             <AppButton
-              label="Continue"
+              label="Continue to Agreement"
               type="submit"
               className="mt-2 w-full"
-              disabled={isLoading}
+              disabled={loadConfirm || orderLoad}
             />
           </form>
         </div>
@@ -197,27 +204,27 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
           <DialogHeader>
             <DialogTitle>Confirm Purchase Agreement</DialogTitle>
             <DialogDescription>
-              Please review and confirm the agreement below before continuing.
+              Please read and agree to the terms below before continuing.
             </DialogDescription>
           </DialogHeader>
 
           <div className="text-sm text-gray-700 space-y-3 max-h-60 overflow-auto">
             <p>
-              Chaincart conducts a thorough vetting process for all listed
+              Chaincart performs thorough due diligence for all listed
               properties, including on-site inspections and document
               verification.
             </p>
             <p>
-              All post-purchase communication will be handled securely via
+              All post-purchase communications will be securely handled via
               email.
             </p>
             <p>
-              Ownership rights and legal documents will be formally transferred
-              after payment and identity confirmation.
+              Ownership rights and legal documents will be officially
+              transferred after payment and identity verification.
             </p>
             <p>
-              By continuing, you confirm that you have read, understood, and
-              agree to these terms.
+              By proceeding, you confirm that you have read, understood, and
+              agree to the terms above.
             </p>
           </div>
 
@@ -234,9 +241,9 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
 
           <DialogFooter>
             <AppButton
-              label="Buy"
+              label="Confirm & Pay"
               onClick={confirmAgreement}
-              disabled={!isAgreementChecked || isLoading}
+              disabled={!isAgreementChecked || orderLoad || loadConfirm}
               className="w-full"
             />
           </DialogFooter>
