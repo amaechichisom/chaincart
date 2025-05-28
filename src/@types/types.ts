@@ -59,7 +59,7 @@ export interface IUserDetails {
   profile: Profile;
   walletAddress: string;
   _id: string;
-  isVerified: boolean;
+  isVerified?: boolean;
 }
 
 interface Profile {

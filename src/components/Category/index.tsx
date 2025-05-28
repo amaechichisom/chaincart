@@ -7,6 +7,7 @@ import Loading from "../shared/Loading";
 export default function Category() {
       const { isLoading, data, error } = useAllProductQuery({});
       console.log({data})
+      console.log({error})
       if(isLoading){
         return <Loading/>
       }

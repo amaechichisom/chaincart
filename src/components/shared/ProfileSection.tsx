@@ -1,14 +1,14 @@
-import { Clipboard } from "lucide-react";
+// import { Clipboard } from "lucide-react";
 // import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Card } from "../ui/card";
+// import { Card } from "../ui/card";
 import { RootState, useAppSelector } from "@/store";
 import { maskAddress } from "@/utils/maskAddress";
 // import { useGetXionBalanceQuery } from "@/api/xionService";
 // import {  useState } from "react";
 import { toast } from "sonner";
 import { Copy, ProfilePic } from "@/assets";
-import { copyToClipboard } from "@/utils/CopyToClipBoard";
+// import { copyToClipboard } from "@/utils/CopyToClipBoard";
 // import useMeta from "@/hooks/useMeta";
 
 const ProfileSection = ({image}: {image?: string}) => {
@@ -20,6 +20,15 @@ const ProfileSection = ({image}: {image?: string}) => {
     address || "0x0000000000000000000000000000000000000000"
   );
   
+  const copyToClipboard = async (address?:string) => {
+    try {
+      await navigator.clipboard.writeText(
+        address || "0x0000000000000000000000000000000000000000"
+      );
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
   
   // const { data } = useGetXionBalanceQuery(address, { skip: !address });
   // const balance = data?.data?.balance || "0.00";   

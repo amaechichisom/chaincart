@@ -2,7 +2,6 @@ import {
   AuthResponse,
   IApiResponse,
   IMessage,
-
   Roles,
 } from "@/@types/types";
 import {
@@ -24,17 +23,16 @@ export default function useAuth() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user } = useAppSelector((state: RootState) => state.auth);
-  const {isConnected,isAuthenticated,connect,} = useRequireWallet()
+  const {isConnected,connect,} = useRequireWallet()
 
   const registerAuth = useCallback(
     async (email: string, password: string) => {
-      console.log({isAuthenticated,isConnected})
-      if (isConnected && !isAuthenticated) {
-        console.log({isAuthenticated,isConnected})
-      connect();
-      toast.info("Please connect your wallet to continue.");
-      return; 
-    }
+     if (!isConnected) {
+  connect(); 
+  toast.info("Please connect your wallet to continue.");
+  return;
+}
+
       toast.dismiss();
       const loadingToast = toast.loading("Registering...");
 
@@ -86,13 +84,12 @@ export default function useAuth() {
 
   const loginAuth = useCallback(
     async (email: string, password: string) => {
-      console.log({isAuthenticated,isConnected})
-      if (isConnected && !isAuthenticated) {
-        console.log({isAuthenticated,isConnected})
-      connect();
-      toast.info("Please connect your wallet to continue.");
-      return; 
-    }
+     if (!isConnected) {
+  connect(); 
+  toast.info("Please connect your wallet to continue.");
+  return;
+}
+
       toast.dismiss();
       const loadingToast = toast.loading("Logging in...");
 

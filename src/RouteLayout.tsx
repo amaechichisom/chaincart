@@ -19,7 +19,6 @@ import ProtectedSellerRoutes from "./page/ProtectedSellerRoutes";
 const App = lazy(() => import("./App"));
 const Seller = lazy(() => import("./page/Seller"));
 const AuthPage = lazy(() => import("./page/AuthPage"));
-// const Listing = lazy(() => import("./page/Listing"));
 const ListingPage = lazy(() => import("./page/ListingPage"));
 // const NotFound = lazy(() => import("./page/NotFound"));
 

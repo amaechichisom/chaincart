@@ -220,9 +220,7 @@ const PropertyListing: React.FC = () => {
     },
     multiple: true,
     maxSize: 5 * 1024 * 1024,
-    onDropRejected: (fileRejections) => {
-      toast.error("Only 4 image is allow");
-    },
+    
   });
 
   const onDocumentsDrop = useCallback((acceptedFiles: File[]) => {

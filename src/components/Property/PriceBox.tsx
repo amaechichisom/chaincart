@@ -23,7 +23,7 @@ import useMeta from "@/hooks/useMeta";
 import { useNavigate } from "react-router-dom";
 
 export type IPriceBox = {
-  price: number;
+  price?: number;
   id?: string;
   isSpecialOffer?: boolean;
 };
@@ -257,7 +257,7 @@ export function SpecialPrice({ price, isSpecialOffer = false }: IPriceBox) {
   return (
     <section>
       <h2 className="text-xl font-semibold text-neutral-900 mb-4">
-        ${price.toLocaleString()}
+        ${price?.toLocaleString() || 0}
       </h2>
 
       {isSpecialOffer && (

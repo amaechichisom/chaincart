@@ -3,8 +3,8 @@ import { Bath, BedDouble } from "lucide-react";
 type IPropertyIInfo = {
   beds?: number;
   bath?: number;
-  address: string;
-  title: string;
+  address?: string;
+  title?: string;
 };
 export default function PropertyInfo({
   address,

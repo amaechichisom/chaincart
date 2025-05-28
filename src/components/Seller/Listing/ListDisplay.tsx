@@ -5,6 +5,7 @@ import ListingProperty from './ListingProperty'
 const ITEMS_PER_PAGE = 4;
 
 function ListDisplay({ activeTab }: { activeTab: string }) {
+    console.log(activeTab)
   const [page, setPage] = useState(1);
 
   const totalPages = Math.ceil(apartmentData.length / ITEMS_PER_PAGE);
