@@ -28,7 +28,9 @@ export default function useAuth() {
 
   const registerAuth = useCallback(
     async (email: string, password: string) => {
-      if (!isConnected || !isAuthenticated) {
+      console.log({isAuthenticated,isConnected})
+      if (isConnected && !isAuthenticated) {
+        console.log({isAuthenticated,isConnected})
       connect();
       toast.info("Please connect your wallet to continue.");
       return; 
@@ -84,7 +86,9 @@ export default function useAuth() {
 
   const loginAuth = useCallback(
     async (email: string, password: string) => {
-      if (!isConnected || !isAuthenticated) {
+      console.log({isAuthenticated,isConnected})
+      if (isConnected && !isAuthenticated) {
+        console.log({isAuthenticated,isConnected})
       connect();
       toast.info("Please connect your wallet to continue.");
       return; 
