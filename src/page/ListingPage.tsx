@@ -1,16 +1,20 @@
-import AppButton from "@/components/shared/AppButton";
-import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Plus } from "lucide-react";
+
+import AppButton from "@/components/shared/AppButton";
+import Loading from "@/components/shared/Loading";
+import { ListingCard } from "@/components/Seller/ListingCard";
+import { useSellerProductQuery } from "@/api/prodService";
+
+import { ILandListing } from "@/@types/types";
 import {
   PauseList,
   SoldListing,
   ActiveList,
   BoughtList,
   UnderReviewList,
-} from "./../assets";
-import { ListingCard } from "../components/Seller/ListingCard";
-import { apartmentData } from "@/CONSTANT/data";
+} from "@/assets";
 
 export type IiActive = "Active" | "Paused" | "Under Review" | "Sold" | "Bought";
 
@@ -65,7 +69,7 @@ type IListing = {
 export const ListHead = ({ btnText, title, href, icons }: IListing) => {
   const navigate = useNavigate();
   return (
-    <section className="flex flex-col  md:flex-row justify-between items-center  space-y-6">
+    <section className="flex flex-col md:flex-row justify-between items-center space-y-6">
       <p className="text-lg font-semibold">{title}</p>
       <AppButton
         label={btnText}
@@ -122,9 +126,16 @@ const emptyStateMap: Record<
 };
 
 const ListingCardGroup = ({ status }: ListingCardGroupProps) => {
+  const { data, isLoading, error } = useSellerProductQuery({});
   const navigate = useNavigate();
 
-  if (apartmentData.length === 0) {
+  const sellerProduct = data?.data?.products as ILandListing[] | undefined;
+
+  if (isLoading) return <Loading />;
+  if (error) return <p>Error loading property details.</p>;
+  if (!sellerProduct) return <p>Property not found.</p>;
+
+  if (sellerProduct.length === 0) {
     const { image, text, buttonLabel, buttonHref } = emptyStateMap[status];
     return (
       <div className="flex flex-col items-center justify-center text-center py-12 space-y-4">
@@ -140,15 +151,15 @@ const ListingCardGroup = ({ status }: ListingCardGroupProps) => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4">
-      {apartmentData.map((item, index) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {sellerProduct.map((item, index) => (
         <ListingCard
-        id={index}
           key={index}
+          id={item._id}
           status={status}
-          title={`${item.title}-${status}`}
+          title={`${item.title} - ${status}`}
           price={`$${item.price}`}
-          image={item.src}
+          image={item.coverImage}
         />
       ))}
     </div>

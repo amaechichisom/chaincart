@@ -39,7 +39,9 @@ export interface CategoryCardProps {
     walletAddress: string ;
     _id: string;
     username: string;
-    isVerified?: boolean;
+    isVerified: boolean;
+    kycStatus?:string
+    phoneNumber?:string
   };
 }
 
