@@ -13,7 +13,7 @@ import { GasPrice } from "@cosmjs/stargate";
 const contractAddress = 'xion1t6pp2v9fz5lsdl5ru9ynwcs322qrqe7hjpj66cqsmfjwfkukel8sesxm8y';
 
 const getClient = async () => {
-  if (!window.keplr) throw new Error("Please connect your wallet first.");
+  if (!window.keplr) throw new Error("Sign in to continue.");
 
   const offlineSigner = window.keplr.getOfflineSigner(Xion_Chain.chainId);
   return SigningCosmWasmClient.connectWithSigner(Xion_Chain.rpc, offlineSigner, {

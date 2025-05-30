@@ -143,7 +143,7 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
         className="w-full"
         label={
           !isAuthenticated
-            ? "Please Connect Wallet"
+            ? "Sign In"
             : showForm
             ? "Hide Form"
             : "Buy Now"

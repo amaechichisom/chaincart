@@ -22,7 +22,7 @@ export default function useMeta() {
     try {
       if (!isConnected) {
         openWalletModal();
-        throw new Error("Please connect your wallet.");
+        throw new Error("Please sign in");
       }
 
       if (!queryClient) {
@@ -45,7 +45,7 @@ export default function useMeta() {
     try {
       if (!isConnected) {
         openWalletModal();
-        throw new Error("Please connect your wallet.");
+        throw new Error("Sign in to continue.");
       }
 
       if (!queryClient) {
@@ -68,7 +68,7 @@ export default function useMeta() {
     try {
       if (!isConnected) {
         openWalletModal();
-        throw new Error("Please connect your wallet.");
+        throw new Error("Sign in to continue.");
       }
   
       if (!signingClient) {
@@ -138,7 +138,7 @@ export default function useMeta() {
     try {
       if (!isConnected) {
         openWalletModal();
-        throw new Error("Please connect your wallet.");
+        throw new Error("Sign in to continue.");
       }
 
       if (!signingClient) {
