@@ -8,10 +8,6 @@ export default function useWallet() {
   const [, setShow] = useModal();
 
 
-  // useEffect(() => {
-  //   console.log({ isConnected, isConnecting, bech32Address });
-  //   // console.log({signingClient,signArb,logout})
-  // }, [isConnected, isConnecting, bech32Address]);
 
   const openWalletModal = () => {
     setShow(true);

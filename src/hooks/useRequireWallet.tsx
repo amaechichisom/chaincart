@@ -68,6 +68,8 @@ export const useRequireWallet = () => {
   }, [bech32Address, walletAuth, dispatch, toast]);
 
   useEffect(() => {
+
+    if (isConnecting) return;
     if (isConnected && !isConnecting && bech32Address && !isAuthenticated) {
       authenticate();
     }

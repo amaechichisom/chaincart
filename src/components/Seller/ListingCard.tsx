@@ -23,7 +23,7 @@ export type ListingCardProps = {
   title: string;
   price: string;
   image: string;
-  id: number;
+  id: number | string;
 };
 
 export const ListingCard = ({ status, title, price, image ,id}: ListingCardProps) => {
@@ -36,7 +36,7 @@ export const ListingCard = ({ status, title, price, image ,id}: ListingCardProps
 
   const openModal = (type: "view" | "pause" | "delete") => {
     setModalType(type);
-    setIsDropdownOpen(false); // close dropdown when opening modal
+    setIsDropdownOpen(false); 
   };
 
   const closeModal = () => {
@@ -54,7 +54,6 @@ export const ListingCard = ({ status, title, price, image ,id}: ListingCardProps
 
   return (
     <div className="relative bg-white rounded-xl shadow hover:shadow-md transition w-full">
-  {/* Only wrap image & text in Link */}
   <Link to={`/seller/listing/${id}`}>
     <img
       src={image}
@@ -67,7 +66,6 @@ export const ListingCard = ({ status, title, price, image ,id}: ListingCardProps
     </div>
   </Link>
 
-  {/* Dropdown is outside Link, so it won't trigger navigation */}
   <div className="absolute top-2 right-2 z-10">
     <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
       <DropdownMenuTrigger asChild>
@@ -103,7 +101,6 @@ export const ListingCard = ({ status, title, price, image ,id}: ListingCardProps
     </DropdownMenu>
   </div>
 
-  {/* Modal */}
   <Dialog
     open={modalType !== null}
     onOpenChange={(open) => {

@@ -8,8 +8,8 @@ class AuthStore {
       localStorage.setItem(key, token);
     }
   
-    static removeAccessToken(): void {
-      localStorage.removeItem('auth');
+    static removeAccessToken(key:string='auth'): void {
+      localStorage.removeItem(key);
     }
   
     static getRefreshToken():string| null {
@@ -20,8 +20,8 @@ class AuthStore {
       localStorage.setItem('refreshToken', token);
     }
   
-    static removeRefreshToken(): void {
-      localStorage.removeItem('refreshToken');
+    static removeRefreshToken(key:string='refreshToken'): void {
+      localStorage.removeItem(key);
     }
   }
   
