@@ -71,12 +71,12 @@ export function Register() {
         transition={{ duration: 0.5 }}
         className="bg-white dark:bg-gray-900 p-8 shadow-lg rounded-lg w-full max-w-md"
       >
-        <AppButton
+        {/* <AppButton
           label="Connect With Xion Meta"
           disabled
           variant="default"
           className="w-full my-4"
-        />
+        /> */}
         <h2 className="text-2xl font-bold text-center mb-6">{formTitle}</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
