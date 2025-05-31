@@ -24,7 +24,7 @@ export default function useAuth() {
     async (email: string, password: string) => {
       if (!isConnected) {
         connect();
-        toast.info("Please connect your wallet to continue.");
+        toast.info("Please sign up to continue.");
         return;
       }
 
@@ -81,7 +81,7 @@ export default function useAuth() {
     async (email: string, password: string) => {
       if (!isConnected) {
         connect();
-        toast.info("Please connect your wallet to continue.");
+        toast.info("Please sign in to continue.");
         return;
       }
 
