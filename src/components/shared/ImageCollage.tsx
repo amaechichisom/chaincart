@@ -40,63 +40,133 @@ export default function ImageCollage({ collageImages }: ImageCollageProps) {
   };
 
   return (
-    <div className="grid grid-cols-5 gap-2 my-5 w-full">
-      <div className="col-span-3">
-        <img
-          src={imagesToShow[0]}
-          alt="Main"
-          className="w-full h-[300px] object-cover rounded-lg"
-        />
+    <div className="my-4 sm:my-5 w-full px-4 sm:px-0">
+      <div className="block md:hidden">
+        <div className="relative">
+          <img
+            src={imagesToShow[0]}
+            alt="Main"
+            className="w-full h-[200px] sm:h-[250px] object-cover rounded-lg"
+          />
+          <div className="absolute bottom-2 right-2">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="text-white text-xs gap-1 bg-black/50 hover:bg-black/70 backdrop-blur-sm"
+                >
+                  <Eye className="w-3 h-3" />
+                  {imagesToShow.length} photos
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-[95vw] max-h-[90vh] p-2 sm:p-4">
+                <DialogHeader className="pb-2">
+                  <DialogTitle className="text-sm sm:text-base">All Photos</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col items-center space-y-3">
+                  <img
+                    src={imagesToShow[currentIndex]}
+                    alt={`Photo ${currentIndex + 1}`}
+                    className="w-full max-h-[60vh] object-cover rounded-lg"
+                  />
+                  <div className="flex justify-between items-center w-full">
+                    <Button 
+                      onClick={prevImage} 
+                      variant="outline" 
+                      size="sm"
+                      className="px-4"
+                    >
+                      Prev
+                    </Button>
+                    <div className="text-xs sm:text-sm text-muted-foreground">
+                      {currentIndex + 1} / {imagesToShow.length}
+                    </div>
+                    <Button 
+                      onClick={nextImage} 
+                      variant="outline" 
+                      size="sm"
+                      className="px-4"
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2  gap-2 h-full w-full col-span-2">
-        {imagesToShow.slice(1, 5).map((img, index) => (
-         <div key={index} className="relative w-full h-[147px]"> 
-            <img
-              src={img}
-              alt={`Small ${index + 1}`}
-              className="w-full h-full object-cover rounded-lg"
-            />
-            {index === 3 && (
-              <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button
-                      variant="secondary"
-                      className="text-white text-xs gap-1 bg-white/10 hover:bg-white/20"
-                    >
-                      <Eye className="w-4 h-4" />
-                      See all photos
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-4xl">
-                    <DialogHeader>
-                      <DialogTitle>All Photos</DialogTitle>
-                    </DialogHeader>
-                    <div className="mt-4 relative flex flex-col items-center">
-                      <img
-                        src={imagesToShow[currentIndex]}
-                        alt={`Photo ${currentIndex + 1}`}
-                        className="w-full max-h-[400px] object-cover rounded-lg"
-                      />
-                      <div className="flex justify-between w-full mt-4">
-                        <Button onClick={prevImage} variant="outline" className="w-20">
-                          Prev
-                        </Button>
-                        <Button onClick={nextImage} variant="outline" className="w-20">
-                          Next
-                        </Button>
+      {/* Desktop Layout - Grid layout */}
+      <div className="hidden md:grid grid-cols-4 lg:grid-cols-5 gap-2 w-full">
+        <div className="col-span-2 lg:col-span-3">
+          <img
+            src={imagesToShow[0]}
+            alt="Main"
+            className="w-full h-[250px] lg:h-[300px] object-cover rounded-lg"
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 h-full w-full col-span-2">
+          {imagesToShow.slice(1, 5).map((img, index) => (
+            <div key={index} className="relative w-full h-[122px] lg:h-[147px]">
+              <img
+                src={img}
+                alt={`Small ${index + 1}`}
+                className="w-full h-full object-cover rounded-lg"
+              />
+              {index === 3 && (
+                <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="text-white text-xs gap-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm"
+                      >
+                        <Eye className="w-4 h-4" />
+                        <span className="hidden lg:inline">See all photos</span>
+                        <span className="lg:hidden">All photos</span>
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
+                      <DialogHeader>
+                        <DialogTitle>All Photos</DialogTitle>
+                      </DialogHeader>
+                      <div className="mt-4 relative flex flex-col items-center space-y-4">
+                        <img
+                          src={imagesToShow[currentIndex]}
+                          alt={`Photo ${currentIndex + 1}`}
+                          className="w-full max-h-[60vh] object-cover rounded-lg"
+                        />
+                        <div className="flex justify-between items-center w-full">
+                          <Button 
+                            onClick={prevImage} 
+                            variant="outline" 
+                            className="w-20"
+                          >
+                            Prev
+                          </Button>
+                          <div className="text-sm text-muted-foreground">
+                            {currentIndex + 1} / {imagesToShow.length}
+                          </div>
+                          <Button 
+                            onClick={nextImage} 
+                            variant="outline" 
+                            className="w-20"
+                          >
+                            Next
+                          </Button>
+                        </div>
                       </div>
-                      <div className="mt-2 text-sm text-muted-foreground">
-                        {currentIndex + 1} / {imagesToShow.length}
-                      </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </div>
-            )}
-          </div>
-        ))}
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
