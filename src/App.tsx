@@ -9,7 +9,7 @@ import {  landData, topCategories, topSellers } from "./CONSTANT/data";
 import PageSelection from '@/components/shared/PageSelection';
 
 function App() {
-    const { isLoading, data, error } = useAllProductQuery({});
+    const { isLoading, data } = useAllProductQuery({});
     if(isLoading){
       return <Loading/>
     }
