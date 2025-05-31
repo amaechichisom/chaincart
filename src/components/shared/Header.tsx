@@ -122,6 +122,8 @@ const TopHeader: React.FC<ITopHeader> = ({ isOpen, closeMobile }) => {
 
 const BottomHeader: React.FC = () => {
   const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const search = params.get("search");
   const authRoute = location.pathname.includes('auth')
   const isSeller = location.pathname.includes("seller") || location.search.includes("seller");  
   const menu = !isSeller ? headerMenu  : profileHeaderMenu;
@@ -140,7 +142,7 @@ const BottomHeader: React.FC = () => {
             <Link
               to={item.href}
               className={`!text-neutral-600 font-medium hover:!bg-[#B9E8FE] cursor-pointer text-sm rounded-3xl py-2 px-4 
-                ${item.href === location.pathname ? "bg-[#B9E8FE]" : "bg-neutral-100"}`}
+                ${item.href === `/category?search=${search}` ? "bg-[#B9E8FE]" : "bg-neutral-100"}`}
             >
               {item.name}
             </Link>
