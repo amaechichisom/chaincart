@@ -76,7 +76,7 @@ export const headerMenu = [
         href: "/category?search=bedsitter",
     },
     {
-        name: "High rise",
+        name: "High Rise",
         href: "/category?search=high-rise",
     },
     {

@@ -18,12 +18,12 @@ export default function useAuth() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user } = useAppSelector((state: RootState) => state.auth);
-  const { isConnected, connect } = useRequireWallet();
+  const { isConnected,openWalletModal } = useRequireWallet();
 
   const registerAuth = useCallback(
     async (email: string, password: string) => {
       if (!isConnected) {
-        connect();
+        openWalletModal();
         toast.info("Please sign up to continue.");
         return;
       }
@@ -80,7 +80,7 @@ export default function useAuth() {
   const loginAuth = useCallback(
     async (email: string, password: string) => {
       if (!isConnected) {
-        connect();
+        openWalletModal();
         toast.info("Please sign in to continue.");
         return;
       }

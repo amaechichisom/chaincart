@@ -1,4 +1,3 @@
-
 import AboutSeller from "./AboutSeller";
 
 export default function SellerDashbaord() {

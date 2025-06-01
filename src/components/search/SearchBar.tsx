@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
+import { RootState, useAppDispatch, useAppSelector } from "@/store";
+import { setSearchTerm } from "@/features/searchSlice";
 // import SearchModal from "./SearchModal";
 
 const SearchBar: React.FC = () => {
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
+
+   const dispatch = useAppDispatch();
+       const searchTerm = useAppSelector((state: RootState) => state.search.term);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchTerm(e.target.value));
+  };
   // const [isOpen, setIsOpen] = useState(false);
 
   // const handleSearch = () => {
@@ -41,9 +50,11 @@ const SearchBar: React.FC = () => {
         <Input
           type="text"
           placeholder="Search for properties"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          // value={query}
+          value={searchTerm}
+          // onChange={(e) => setQuery(e.target.value)}
           // onKeyDown={handleKeyDown}
+          onChange={handleChange}
           className="w-full max-w-sm text-white md:text-input placeholder:text-gray-400 border-primary pl-10"
         />
       </div>

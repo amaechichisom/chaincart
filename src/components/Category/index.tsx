@@ -1,23 +1,19 @@
-// import { apartmentData } from "@/CONSTANT/data";
-import PropertyItem from "../Home/PropertyItem";
-import { useAllProductQuery } from "@/api/prodService";
-import { ILandListing } from "@/@types/types";
-import Loading from "../shared/Loading";
 
-export default function Category() {
-      const { isLoading, data, error } = useAllProductQuery({});
-      console.log({data})
-      console.log({error})
-      if(isLoading){
-        return <Loading/>
-      }
-      const BestApertmetList = data?.data.products as ILandListing[]
+import PropertyItem from "../Home/PropertyItem";
+import { ILandListing } from "@/@types/types";
+import NoContent from "../shared/NoContent";
+
+export default function Category({filteredProducts}:{filteredProducts:ILandListing[]}) {
+
+   if(filteredProducts.length === 0){
+    return <NoContent/>
+   }
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       {Array(3)
-        .fill(BestApertmetList)
+        .fill(filteredProducts)
         .flat()
-        .map((item:ILandListing, idx) => (
+        .map((item: ILandListing, idx) => (
           <PropertyItem key={idx} {...item} _id={`/property/${item._id}`} />
         ))}
     </div>
