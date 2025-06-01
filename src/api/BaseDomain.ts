@@ -4,8 +4,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 // export const baseUrl = `${BASE_URL}api`;
-// export const baseUrl = `https://xion-commerce.onrender.com/api`;
-export const baseUrl = 'http://localhost:5000/api';
+export const baseUrl = `https://xion-commerce.onrender.com/api`;
+// export const baseUrl = 'http://localhost:5000/api';
 // export const baseUrl = 'http://13.247.245.19:5000/api';
 
 export const baseDomain = createApi({

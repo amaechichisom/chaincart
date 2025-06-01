@@ -35,7 +35,7 @@ const MobileMenu: React.FC<IMobileMenu> = ({
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed inset-0 bg-transparent bg-opacity-50 flex justify-end lg:hidden z-10"
+          className="fixed inset-0 bg-transparent bg-opacity-50 flex justify-end lg:hidden z-40"
           onClick={handleOutsideClick}
         >
           <div
