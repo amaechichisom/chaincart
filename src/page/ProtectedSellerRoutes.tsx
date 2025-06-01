@@ -6,7 +6,7 @@ const ProtectedSellerRoutes = () => {
   const { user, isAuthenticated } = useAppSelector(state => state.auth);
 console.log(Roles.SELLER)
   if (!isAuthenticated || !user?.roles.includes(Roles.SELLER)) {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to="/seller" replace />;
   }
 
   if (!user?.isVerified) {

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RootState, useAppSelector } from "@/store";
-import { useRequireWallet } from "@/hooks/useRequireWallet";
 import { useToast } from "@/hooks/useToast";
 import useMeta from "@/hooks/useMeta";
 import {
@@ -18,13 +17,12 @@ export function usePriceBox(id?: string) {
   const [saveDetailsToProfile, setSaveDetailsToProfile] = useState(false);
     const [keepLoad, setKeepLoad] = useState(false);
 
-  const { isAuthenticated, user } = useAppSelector(
+  const {  user } = useAppSelector(
     (state: RootState) => state.auth
   );
   const navigate = useNavigate();
   const walletAddress = user?.walletAddress;
 
-  const { connect } = useRequireWallet();
   const toast = useToast();
   const { initEscrow } = useMeta();
 
@@ -44,6 +42,7 @@ export function usePriceBox(id?: string) {
 
   useEffect(() => {
     const successResponse = checkData?.data as AuthResponse;
+    console.log({successResponse})
     if (successResponse) {
       setUserDetails({
         fullName: successResponse?.user?.profile.name ?? "",
@@ -123,8 +122,6 @@ export function usePriceBox(id?: string) {
   }
 
   return {
-    isAuthenticated,
-    connect,
     showForm,
     setShowForm,
     isModalOpen,

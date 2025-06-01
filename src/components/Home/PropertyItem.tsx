@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { ApartmentOne } from '@/assets';
-import { ILandListing } from "@/@types/types";
+import { ApartmentOne } from "@/assets";
+import {  ILandListing } from "@/@types/types";
 
 // interface PropertyItemProps {
 //   src?: string;
@@ -8,10 +8,18 @@ import { ILandListing } from "@/@types/types";
 //   price?: number;
 //   discountPrice?: number;
 //   discountPercentage?: number;
-//   id?: string; 
+//   id?: string;
 // }
 
-function PropertyItem({ _id,coverImage,percentage,title,price,specialOfferPrice}: ILandListing) {
+function PropertyItem({
+  _id,
+  coverImage,
+  percentage,
+  title,
+  price,
+  specialOfferPrice,
+  category,
+}: ILandListing) {
   console.log(percentage);
   const content = (
     <div className="flex flex-col items-start justify-center gap-2 bg-white shadow-md rounded-lg p-1 pb-3 w-full max-w-xs sm:max-w-[200px] md:max-w-56 max-h-64 h-auto mx-auto lg:mx-0">
@@ -29,28 +37,28 @@ function PropertyItem({ _id,coverImage,percentage,title,price,specialOfferPrice}
       </div>
 
       <p className="font-semibold text-xs sm:text-sm text-neutral-900 px-2 truncate w-full">
-        {title || 'Not set'}
+        {title || "Not set"}
       </p>
+      {category && (
+        <p className="font-semibold text-xs sm:text-sm text-neutral-900 px-2 truncate w-full">
+          {typeof category === "string" ? category : category.name}
+        </p>
+      )}
+
       <div className="flex items-center justify-between w-full px-2">
         <p className="font-semibold text-xs sm:text-sm text-neutral-500">
-          ${price || 'Not set'}
+          ${price || "Not set"}
         </p>
         {specialOfferPrice && (
           <p className="font-light text-xs text-neutral-500 line-through">
-            ${specialOfferPrice || 'Not set'}
+            ${specialOfferPrice || "Not set"}
           </p>
         )}
       </div>
     </div>
   );
 
-  return _id ? (
-    <Link to={`${_id}`}>
-      {content}
-    </Link>
-  ) : (
-    content
-  );
+  return _id ? <Link to={`${_id}`}>{content}</Link> : content;
 }
 
 export default PropertyItem;

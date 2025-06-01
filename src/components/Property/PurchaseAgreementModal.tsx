@@ -28,11 +28,11 @@ export function PurchaseAgreementModal({
   disabled,
 }: PurchaseAgreementModalProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange} >
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>Confirm Purchase Agreement</DialogTitle>
-          <DialogDescription>
+          <DialogTitle title=""> Confirm Purchase Agreement</DialogTitle>
+          <DialogDescription title="">
             Please read and agree to the terms below before continuing.
           </DialogDescription>
         </DialogHeader>

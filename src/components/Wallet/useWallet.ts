@@ -1,4 +1,5 @@
 import { useAbstraxionAccount, useAbstraxionClient, useAbstraxionSigningClient, useModal } from '@burnt-labs/abstraxion';
+import { useCallback } from 'react';
 // import { useEffect } from 'react';
 
 export default function useWallet() {
@@ -9,9 +10,9 @@ export default function useWallet() {
 
 
 
-  const openWalletModal = () => {
-    setShow(true);
-  };
+  const openWalletModal = useCallback(() => {
+      setShow(true);
+    }, [setShow]);
 
   return { bech32Address, setShow, isConnected, isConnecting, signingClient, signArb, logout, queryClient, openWalletModal };
 }

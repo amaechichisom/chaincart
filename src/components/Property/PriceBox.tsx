@@ -3,6 +3,7 @@ import { SpecialPrice } from "./SpecialPrice";
 import AppButton from "../shared/AppButton";
 import { PriceForm } from "./PriceForm";
 import { PurchaseAgreementModal } from "./PurchaseAgreementModal";
+import useWallet from "../Wallet/useWallet";
 
 export type IPriceBox = {
   price?: number;
@@ -12,8 +13,6 @@ export type IPriceBox = {
 
 export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
   const {
-    isAuthenticated,
-    connect,
     showForm,
     setShowForm,
     isModalOpen,
@@ -28,6 +27,11 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
     confirmAgreement,
     isLoading,
   } = usePriceBox(id);
+  
+  const {isConnected,openWalletModal} = useWallet()
+  const connect = () => {
+    openWalletModal(); 
+  };
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
@@ -35,17 +39,13 @@ export default function PriceBox({ price, isSpecialOffer, id }: IPriceBox) {
       <AppButton
         className="w-full"
         label={
-          !isAuthenticated
-            ? "Sign In"
-            : showForm
-            ? "Hide Form"
-            : "Buy Now"
+          !isConnected ? "Sign In" : showForm ? "Hide Form" : "Buy Now"
         }
         onClick={() =>
-          !isAuthenticated ? connect() : setShowForm((prev) => !prev)
+          !isConnected ? connect() : setShowForm((prev) => !prev)
         }
       />
-      {showForm && isAuthenticated && (
+      {showForm && isConnected && (
         <PriceForm
           email={userDetails.email}
           phoneNumber={userDetails.phoneNumber}
