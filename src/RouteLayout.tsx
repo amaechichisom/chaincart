@@ -20,6 +20,7 @@ const App = lazy(() => import("./App"));
 const Seller = lazy(() => import("./page/Seller"));
 const AuthPage = lazy(() => import("./page/AuthPage"));
 const ListingPage = lazy(() => import("./page/ListingPage"));
+const Kyc = lazy(() => import("./page/Kyc"));
 // const NotFound = lazy(() => import("./page/NotFound"));
 
 const LazyWrapper = (Component: React.ComponentType) => (
@@ -35,6 +36,7 @@ export default function RouteLayout() {
       <>
         <Route path="/" element={<Layout />}>
           <Route index element={LazyWrapper(App)} />
+          <Route path="kyc" element={LazyWrapper(Kyc)} />
           <Route path="auth" element={LazyWrapper(AuthPage)} />
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/property">

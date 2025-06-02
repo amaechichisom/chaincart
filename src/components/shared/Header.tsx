@@ -88,7 +88,7 @@ const TopHeader: React.FC<ITopHeader> = ({ isOpen, closeMobile }) => {
 
   return (
     <section className="p-3 px-4 flex items-center justify-between gap-2 lg:container lg:mx-auto">
-      <div className="flex items-center gap-2">
+      <div onClick={() => navigate("/")} className="flex items-center gap-2">
         <Logo size="small" />
         <h3 className="font-manrope text-xl text-warp-100 font-bold">ChainCart</h3>
       </div>
