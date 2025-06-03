@@ -10,9 +10,7 @@ export default function Category({filteredProducts}:{filteredProducts:ILandListi
    }
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {Array(3)
-        .fill(filteredProducts)
-        .flat()
+      {filteredProducts
         .map((item: ILandListing, idx) => (
           <PropertyItem key={idx} {...item} _id={`/property/${item._id}`} />
         ))}
