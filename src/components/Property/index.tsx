@@ -1,5 +1,4 @@
-import { apartmentData } from "@/CONSTANT/data";
-import ListProperty from "../Home/ListProperty";
+
 import ImageCollage from "../shared/ImageCollage";
 import PriceBox from "./PriceBox";
 import PropertyDescription from "./PropertyDescription";
@@ -36,6 +35,7 @@ export default function PropertyDetail() {
       <div className="grid grid-cols-1 md:grid-cols-3 justify-between items-start gap-3 my-5 w-full h-full">
         <div className="col-span-2">
           <PropertyInfo
+          
             address={typedData.address}
             title={typedData.title}
             bath={typedData.baths}
@@ -46,8 +46,6 @@ export default function PropertyDetail() {
         <PriceBox price={typedData.price} id={typedData._id}/>
       </div>
 
-      <ListProperty data={apartmentData} title="Other Properties Nearby" link="/" />
-      <ListProperty data={apartmentData} title="Near you" link="/" />
     </section>
   );
 }
