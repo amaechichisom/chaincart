@@ -4,14 +4,14 @@ import { Copy } from "lucide-react";
 import { maskAddress } from "@/utils/maskAddress";
 import { RootState, useAppSelector } from "@/store";
 // import { cancelEscrow, releaseFunds } from "@/utils/escrowService";
-import { IApiResponse, IUserOrderHistory } from "@/@types/types";
+import { IApiResponse, TOrder } from "@/@types/types";
 import { useUpdateOrderStatusMutation } from "@/api/orderService";
 import { useToast } from "@/hooks/useToast";
 // import { useMetaAction } from "@/hooks/useMetaAction";
 import useMeta from "@/hooks/useMeta";
 
 interface HistoryCardProps {
-  purchase: IUserOrderHistory;
+  purchase: TOrder;
   showActions?: boolean;
 }
 
@@ -118,9 +118,9 @@ const handleEscrowAction = useCallback(async (action: "release" | "cancel") => {
             key={item._id}
             className="flex items-center gap-4 border p-2 rounded"
           >
-            {item.product?.image_of_land && (
+            {item.product?.coverImage && (
               <img
-                src={item.product.image_of_land}
+                src={item.product.coverImage}
                 alt="Product"
                 className="w-24 h-24 object-cover rounded-lg"
               />

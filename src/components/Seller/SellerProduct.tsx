@@ -38,7 +38,7 @@ export default function SellerProduct() {
             bath={typedData.baths}
             beds={typedData.beds}
           />
-          <PropertyDescription />
+          <PropertyDescription description={typedData.description}/>
         </div>
         <SpecialPrice price={typedData.price} />
       </div>

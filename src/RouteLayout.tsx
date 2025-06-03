@@ -21,6 +21,7 @@ const Seller = lazy(() => import("./page/Seller"));
 const AuthPage = lazy(() => import("./page/AuthPage"));
 const ListingPage = lazy(() => import("./page/ListingPage"));
 const Kyc = lazy(() => import("./page/Kyc"));
+const Buyer = lazy(() => import("./page/Buyer"));
 // const NotFound = lazy(() => import("./page/NotFound"));
 
 const LazyWrapper = (Component: React.ComponentType) => (
@@ -43,10 +44,18 @@ export default function RouteLayout() {
             <Route index element={<PropertyDetailPage />} />
             <Route path=":id" element={<PropertyDetailPage />} />
           </Route>
-
-
           <Route
-            element={<ProtectedRoutes allowedRoles={[Roles.SELLER]} />}
+            element={
+              <ProtectedRoutes allowedRoles={[Roles.BUYER, Roles.SELLER]} />
+            }
+            path="buyer"
+          >
+            <Route index element={LazyWrapper(Buyer)} />
+          </Route>
+          <Route
+            element={
+              <ProtectedRoutes allowedRoles={[Roles.SELLER, Roles.BUYER]} />
+            }
             path="seller"
           >
             <Route index element={LazyWrapper(Seller)} />

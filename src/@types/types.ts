@@ -189,7 +189,7 @@ export type ILandListing = {
   description: string;
   price: number;
   specialOfferPrice: number;
-  category: string;
+  category: string | ICategory;
   seller: {
     _id: string;
     walletAddress: string | null;
@@ -218,3 +218,34 @@ export type ILandListing = {
   percentage: number;
   __v: number;
 };
+
+
+type TOderProduct = Pick<ILandListing,'_id'| 'price' | 'stock' |'image_of_land'|'coverImage'>
+
+interface TOrderItem {
+  _id: string;
+  product: TOderProduct;
+  quantity: number;
+  price: number;
+}
+
+interface TPayment {
+  amount: number;
+  txHash: string;
+}
+
+export interface TOrder {
+  _id: string;
+  buyer: string;
+  seller: string;
+  items: TOrderItem[];
+  payment: TPayment;
+  status: "pending" | "completed" | "failed";
+  email: string;
+  fullName: string;
+  phoneNumber: number;
+  totalAmount: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

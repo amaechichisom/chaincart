@@ -41,7 +41,7 @@ export default function PropertyDetail() {
             bath={typedData.baths}
             beds={typedData.beds}
           />
-          <PropertyDescription />
+          <PropertyDescription description={typedData.description}/>
         </div>
         <PriceBox price={typedData.price} id={typedData._id}/>
       </div>

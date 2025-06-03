@@ -162,11 +162,16 @@ const PropertyListing: React.FC = () => {
     }
   };
 
-  const onCoverImageDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles.length > 0) {
-      setFormData((prev) => ({ ...prev, coverImage: acceptedFiles[0] }));
-    }
-  }, []);
+const onCoverImageDrop = useCallback((acceptedFiles: File[]) => {
+  if (acceptedFiles.length > 1) {
+    toast.error("Only one cover image is allowed.");
+    return;
+  }
+  if (acceptedFiles.length === 1) {
+    setFormData((prev) => ({ ...prev, coverImage: acceptedFiles[0] }));
+  }
+}, [toast]);
+
 
   const handleDateChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -317,7 +322,7 @@ const PropertyListing: React.FC = () => {
             />
             <InputField
               id="address"
-              label={`Address`}
+              label={`Property Address `}
               placeholder="Enter address"
               required
               value={formData.address}

@@ -6,7 +6,7 @@ import Loading from "../shared/Loading";
 
 const XionWallet = () => {
   const {
-    connect,
+    openWalletModal,
     disconnect,
     bech32Address,
     isConnecting,
@@ -23,7 +23,7 @@ const XionWallet = () => {
         textStyle="text-sm"
         isLoading={isLoading}
         label={bech32Address ? `${maskAddress(bech32Address)}` : "Sign In"}
-        onClick={connect}
+        onClick={openWalletModal}
       />
       <Abstraxion onClose={disconnect} />
     </section>

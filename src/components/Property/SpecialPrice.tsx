@@ -4,7 +4,10 @@ export function SpecialPrice({ price, isSpecialOffer = false }: IPriceBox) {
   return (
     <section>
       <h2 className="text-xl font-semibold text-neutral-900 mb-4">
-        ${price?.toLocaleString() || 0}
+        {price?.toLocaleString(undefined, {
+          minimumFractionDigits: 4,
+          maximumFractionDigits: 8,
+        })}
       </h2>
 
       {isSpecialOffer && (
