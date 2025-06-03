@@ -6,16 +6,16 @@ import { RootState, useAppSelector } from "@/store";
 import { useLocation } from "react-router-dom";
 
 export const CategoryExtract = [
-  { _id: "683c4a3cff2be395333cc064", name: "Apartment" },
-  { _id: "683c4a3cff2be395333cc068", name: "Flat" },
-  { _id: "683c4a3cff2be395333cc067", name: "Land" },
-  { _id: "683c4a3cff2be395333cc069", name: "Duplex" },
-  { _id: "683c4a3cff2be395333cc065", name: "Bungalow" },
-  { _id: "683c4a3cff2be395333cc06d", name: "Bedsitter" },
+  { _id: "683eb6103da2b19f5066e093", name: "Apartment" },
+  { _id: "683eb6103da2b19f5066e095", name: "Flat" },
+  { _id: "683eb6103da2b19f5066e096", name: "Land" },
+  { _id: "683eb6103da2b19f5066e098", name: "Duplex" },
+  { _id: "683eb6103da2b19f5066e094", name: "Bungalow" },
+  { _id: "683eb6103da2b19f5066e09c", name: "Bedsitter" },
   { _id: "683c4a3cff2be395333cc06b", name: "Studio Apartment" },
-  { _id: "683c4a3cff2be395333cc06c", name: "High-Rise" },
-  { _id: "683c4a3cff2be395333cc066", name: "Mini-Flat" },
-  { _id: "683c4a3cff2be395333cc06a", name: "Townhouse/Terrace" },
+  { _id: "683eb6103da2b19f5066e09b", name: "High-Rise" },
+  { _id: "683eb6103da2b19f5066e097", name: "Mini-Flat" },
+  { _id: "683eb6103da2b19f5066e099", name: "Townhouse/Terrace" },
 ];
 
 export default function CategoryPage() {
@@ -60,5 +60,4 @@ export default function CategoryPage() {
     </div>
   );
 }
-
 
